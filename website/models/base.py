@@ -4,7 +4,7 @@
 from pymongo import MongoClient
 from gridfs import GridFS
 from datetime import datetime
-from settings import DB_NAME, COLLECTIONS, IGNORE_ATTRS
+from website.settings import DB_NAME, COLLECTIONS, IGNORE_ATTRS
 
 
 class Model(object):

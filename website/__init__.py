@@ -1,5 +1,5 @@
 from flask import Flask
-from settings import SECRET_KEY, STORE_FILE
+from website.settings import SECRET_KEY, STORE_FILE
 from website.models import Collection, Cart, User, Review
 
 
