@@ -1,6 +1,6 @@
 from flask import session, request
 from bson import ObjectId
-from website import app, api_key, users, carts, reviews, models
+from website import api_key, users, carts, reviews, models
 import json
 
 
@@ -30,7 +30,6 @@ def serialize(obj):
 
 
 # Serves the data from the backend to the frontend js using json module
-@app.route('/_data')
 def serve_carts():
     # Get iterable copy of args
     item_type = request.args.get('item_type')
@@ -62,7 +61,6 @@ def serve_carts():
 
 
 # Get image by id
-@app.route('/_image/<image_id>')
 def serve_image(image_id):
     image = models.fs.get(ObjectId(image_id))
     data = image.read()
