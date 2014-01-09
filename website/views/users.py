@@ -14,3 +14,21 @@ def logout():
         session.pop('username')
 
     return redirect(url_for('home'))
+
+
+# Login
+def login():
+    context = base_context()
+    if context['user'] is not None:
+        return redirect(url_for('home'))
+
+    pass
+
+
+# Register
+def register():
+    context = base_context()
+    if context['user'] is not None:
+        return redirect(url_for('home'))
+
+    pass

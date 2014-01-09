@@ -4,7 +4,7 @@ from website.models.review import Review
 
 
 ''' Format for an insert would be:
-    users.insert(username=...,password=...)
+    users.insert(username=...,password=...,is_owner=...)
 '''
 class UserModel(Model):
 
