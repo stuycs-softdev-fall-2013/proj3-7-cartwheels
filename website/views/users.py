@@ -1,11 +1,11 @@
-from flask import session, redirect, url_for
+from flask import render_template, session, redirect, url_for
 from utils import base_context
 
 
 # User page
-def user_page(username):
+def user_page(username=None):
     context = base_context()
-    pass
+    return render_template('user.html', **context)
 
 
 # Logout
@@ -22,7 +22,7 @@ def login():
     if context['user'] is not None:
         return redirect(url_for('home'))
 
-    pass
+    return render_template('login.html', **context)
 
 
 # Register
@@ -31,4 +31,4 @@ def register():
     if context['user'] is not None:
         return redirect(url_for('home'))
 
-    pass
+    return render_template('register.html', **context)
