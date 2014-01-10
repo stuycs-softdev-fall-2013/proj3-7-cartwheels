@@ -3,8 +3,18 @@ from website.models.base import Collection, Model
 from website.models.review import Review
 
 
+reviews = Review()
+
+
 ''' Format for an insert would be:
     users.insert(username=...,password=...,is_owner=...)
+
+    Other uses...
+    users.cart_id = asdfasdf
+    user.save()
+
+    user.bio = asdfasdf
+    user.save()
 '''
 class UserModel(Model):
 
@@ -30,7 +40,6 @@ class UserModel(Model):
 
     # Get blog reviews made by this user, and with other arguments
     def get_reviews(self, **kwargs):
-        reviews = Review()
         return reviews.find(user=self.username, **kwargs)
 
 

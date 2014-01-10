@@ -7,6 +7,7 @@ from website.models.photo import Photo
 
 
 reviews = Review()
+tags = Tag()
 photos = Photo()
 
 
@@ -32,7 +33,6 @@ class CartModel(Model):
 
     # Adds tag to cart
     def add_tag(self, label):
-        tags = Tag()
         t = tags.find_one(label=label)
 
         if not t:
