@@ -62,6 +62,7 @@ $(function () {
 
     var onInputFocus = function () {
         flag.fadeOut(300);
+        $('body').css({'overflow': 'scroll'});
         gallery.animate({'opacity': 0.9});
     };
 
@@ -72,8 +73,6 @@ $(function () {
                 $('#search-results').css({
                     'display': 'block'
                 });
-
-                $('body').css({'overflow': 'scroll'});
             });
 
             //Creating and styling the results list
