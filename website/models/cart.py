@@ -52,9 +52,16 @@ class CartModel(Model):
         self.save()
         return rev
 
-    # Get blog reviews made by this user, and with other arguments
+    # Get reviews made by this user, and with other arguments
     def get_reviews(self, **kwargs):
         return reviews.find(cart_id=self.get_id(), **kwargs)
+
+    # Get review ids
+    @property
+    def review_ids(self):
+        revs = self.get_reviews()
+        ids = [r.get_id() for r in revs]
+        return ids
 
 
 class Cart(Collection):
