@@ -1,0 +1,134 @@
+<html>
+  <head>
+    <!--include javascript files-->
+    <script type="text/javascript" src="{{ url_for('static', filename='include/jquery.min.js') }}"></script>
+
+    <!--stylesheets-->
+    <style>
+      /* useful macros */
+      .hidden {
+        display: none;
+      }
+
+      .centered-relative {
+        position: relative;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .centered-absolute {
+        position: absolute;
+        left: 50%;
+      }
+
+      /* for the main content of a page */
+      .main-content {
+        overflow: hidden;
+        margin-top: 75px;
+      }
+
+      .middle-content {
+        width: 60%;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .left-sidebar {
+        float: left;
+        width: 20%;
+      }
+
+      .right-sidebar {
+        float: right;
+        width: 20%;
+      }
+
+      /* generic search bar*/
+      .search {
+        display: inline;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+      }
+
+      .search:focus {
+        border: 1px solid #fafafa;
+        -webkit-box-shadow: 0 0 6px #007eff;
+        -moz-box-shadow: 0 0 5px #007eff;
+        box-shadow: 0 0 5px #007eff;
+        outline-color: none;
+        transition: outline-color .5s, box-shadow .5s;
+      }
+
+      /* main search bar */
+      .main-search {
+        height: 30px;
+        font-size: 13px;
+        padding-left: 5px;
+        border: 1px solid #555555;
+      }
+
+      #kwds {
+        width: 300px;
+      }
+
+      #input-container {
+        top: 20px;
+      }
+
+      #search-input {
+        position: relative;
+        left: -50%;
+      }
+
+      #loc {
+        width: 100px;
+      }
+
+      #header {
+        position: absolute;
+        width: 100%;
+        height: 75px;
+        left: 0;
+        background-color: #222222;
+      } 
+    </style>
+    {% block head %}
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+    {% endblock %}
+    <div class="main-content">
+    {% block main_content %}
+      <div class="left-sidebar">
+      {% block left_sidebar %}
+      {% endblock %}
+      </div>
+
+      <div class="middle-content">
+      {% block middle_content %}
+      {% endblock %}
+      </div>
+
+      <div class="right-sidebar">
+      {% block right_sidebar %}
+      {% endblock %}
+      </div>
+    {% endblock %}
+    </div>
+
+    <div id=header>
+      <!--search input to find carts-->
+      <div id=input-container class=centered-absolute>
+        <div id=search-input>
+          <input id=kwds class="search main-search" type=text placeholder="Find a food cart by name, food type, tags">
+          <input id=loc class="search main-search" type=text placeholder="Around...">
+        </div>
+      </div>
+    </div>
+  </body>
+
+  {% block scripts %}
+  {% endblock %}
+</html>
