@@ -22,9 +22,7 @@ class CartModel(Model):
 
     # Adds image associated with the cart
     def add_image(self, image_file, label):
-        image_id = self.fs.put(image_file.read())
-        img = photos.insert(cart_id=self.get_id(), image_id=image_id,
-                date_added=datetime.now(), label=label)
+        img = photos.insert(image_file=image_file, is_cart=True, cart_id=self.get_id(), label=label)
         return img
 
     # Get images associated with cart

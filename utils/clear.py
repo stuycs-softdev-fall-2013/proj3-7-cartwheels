@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 from website.models import Collection
-from settings import COLLECTIONS
+from website.settings import COLLECTIONS
 
 models = Collection()
 

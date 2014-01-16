@@ -163,12 +163,6 @@
         left: -50%;
       }
 
-      #search-input img {
-        display: inline;
-        width: 10px;
-        height: 10px;
-      }
-
       #kwds {
         width: 300px;
       }
@@ -205,7 +199,7 @@
     <!--cycling image gallery-->
     <div id=gallery>
       {% for image in imagelist %}
-      <img src="{{ url_for('static', filename=image) }}">
+      <img src="{{ url_for('serve_image', image_id=image.get_id()) }}">
       {% endfor %}
     </div>
 
@@ -221,7 +215,7 @@
         {% for i in range(0, 20) %}
         <li class="centered-relative search-item">
           <div class="image-meta">
-            <img src="{{ url_for('static', filename='images/TD.jpg') }}">
+            <img src="{{ imagelist[i].url_path }}">
           </div>
 
           <div class="content-meta">
