@@ -2,15 +2,18 @@ $(function () {
     "use strict";
 
     //elements
-    var $gallery = $('#gallery'),
-        $flag = $('#flag'),
+    var $header = $('#header'),
         $inputBox = $('#search-input'),
         $inputText = $inputBox.find('input'),
-        $searchResults = $('.main-content'),
-        $header = $('#header');
+        $gallery = $('#gallery'),
+        $flag = $('#flag'),
+        $mainContent = $('.main-content');
 
     //other variables
     var targetImgHeight = 75;
+
+    //initialization
+    $mainContent.addClass('hidden');
 
     //when the images load, create collage
     var onImageLoad = function () {
@@ -27,7 +30,6 @@ $(function () {
         }, 250);
 
         $flag.removeClass('hidden');
-
         $('body').css({'overflow': 'hidden'});
     };
 
@@ -36,7 +38,7 @@ $(function () {
 
     //function to change image size based on aspect ratio in results
     var resizeImageResults = function () {
-        var imageList = $searchResults.find('img');
+        var imageList = $mainContent.find('img');
 
         imageList.each(function () {
             var $img = $(this);
@@ -52,7 +54,7 @@ $(function () {
 
     //function to add border on bottom of last element
     var borderLast = function () {
-        var searchItems = $searchResults.find('.search-item'),
+        var searchItems = $mainContent.find('.search-item'),
             lastItem = $(searchItems[searchItems.length - 1]);
 
         lastItem.css({
@@ -71,7 +73,8 @@ $(function () {
     var onInputSubmit = function (e) {
         if (e.keyCode === 13) {
             $gallery.fadeOut(500, function () {
-                $searchResults.removeClass('hidden');
+                $mainContent.removeClass('hidden');
+                $(window).scrollTop(0);
             });
 
             //Creating and styling the results list
@@ -84,6 +87,7 @@ $(function () {
     $inputText.on('keypress', onInputSubmit);
     $inputText.focus(onInputFocus);
 
+    //keep header on the top of the page
     var positionHeader = function () {
         var $window = $(window);
         var $headerTop = $window.scrollTop();

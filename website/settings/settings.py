@@ -10,6 +10,7 @@ COLLECTIONS = {
         'Tag': 'tags',
         'Review': 'reviews',
         'Photo': 'photos',
+        'CartAd': 'ads',
         'Collection': 'ignore'
         }
 
