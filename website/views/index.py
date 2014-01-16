@@ -4,7 +4,7 @@ from os import listdir
 
 
 image_path = '/Users/benjaminattal/dev/softdev/projects/cartwheels/website/static/images'
-imagelist = ['images/%s' % f for f in listdir(image_path)]
+imagelist = ['images/%s' % f for f in listdir(image_path) if f not in ['.DS_Store', 'search-icon.png']]
 
 
 # Index page

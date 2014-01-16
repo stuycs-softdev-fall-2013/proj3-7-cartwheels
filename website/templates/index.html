@@ -11,6 +11,7 @@
 
     <!--stylesheets-->
     <style>
+      /* useful macros */
       .hidden {
         display: none;
       }
@@ -26,10 +27,27 @@
         left: 50%;
       }
 
-      .transparent-class {
-        opacity: 0.5;
+      /* for the main content of a page */
+      .main-content {
+        overflow: hidden;
+        margin-top: 75px;
       }
 
+      .middle-content {
+        width: 60%;
+      }
+
+      .left-sidebar {
+        float: left;
+        width: 20%;
+      }
+
+      .right-sidebar {
+        float: right;
+        width: 20%;
+      }
+
+      /* generic search bar*/
       .search {
         display: inline;
         -webkit-border-radius: 2px;
@@ -46,6 +64,7 @@
         transition: outline-color .5s, box-shadow .5s;
       }
 
+      /* main search bar */
       .main-search {
         height: 30px;
         font-size: 13px;
@@ -54,20 +73,19 @@
       }
 
       .search-label {
-        text-align: center;
-        width: 80%;
-        height: 50px;
-        margin-left: 20px;
-        margin-right: auto;
+        width: 100%;
+        height: 40px;
         margin-bottom: 30px;
+        text-align: center;
         font-size: 30px;
-        font-weight: bold;
         border-bottom: 1px solid #999999;
+        padding-top: 40px;
       }
 
+      /* search items*/
       .search-item {
         display: block;
-        width: 25%;
+        width: 350px;
         height: 20%;
         border: 1px solid #efefef;
         border-bottom: none;
@@ -99,6 +117,7 @@
         position: absolute;
         top: 5px;
         right: 5px;
+        text-decoration: none;
       }
 
       .tags-meta {
@@ -117,6 +136,11 @@
         padding: 5px;
       }
 
+      .tags-meta span:hover {
+        background-color: #999999;
+      }
+
+      /* css based on id */
       #flag {
         position: absolute;
         width: 100%;
@@ -124,7 +148,6 @@
         left: 0;
         background-color: gray;
         opacity: 0.4;
-
         text-align: center;
         color: black;
         font-size: 100px;
@@ -138,6 +161,12 @@
       #search-input {
         position: relative;
         left: -50%;
+      }
+
+      #search-input img {
+        display: inline;
+        width: 10px;
+        height: 10px;
       }
 
       #kwds {
@@ -158,13 +187,6 @@
         opacity: 0;
         -moz-opacity: 0;
         -webkit-opacity: 0;
-      }
-
-      #search-results {
-        margin-top: 100px;
-        margin-left: auto;
-        margin-right: auto;
-        overflow: hidden;
       }
 
       #header {
@@ -192,37 +214,40 @@
     </div>
 
     <!--search results display area-->
-    <div id=search-results class=hidden>
-      <div class="search-label">Results</div>
-      {% for i in range(0, 20) %}
-      <div class="centered-relative search-item">
-        <div class="image-meta">
-          <img src="{{ url_for('static', filename='images/TD.jpg') }}">
-        </div>
+    <div class="main-content hidden">
+      <div class="left-sidebar"></div>
+      <div class="search-label">Results around 'Manhattan'</div>
+      <ul class="middle-content centered-relative">
+        {% for i in range(0, 20) %}
+        <li class="centered-relative search-item">
+          <div class="image-meta">
+            <img src="{{ url_for('static', filename='images/TD.jpg') }}">
+          </div>
 
-        <div class="content-meta">
-          <div class="rating">
-            [Rating]
+          <div class="content-meta">
+            <div class="rating">
+              [Rating]
+            </div>
+            <div class="name">
+              Nuts for Nuts
+            </div>
+            <div class="address">
+              300 Astor Place
+            </div>
+            <a class="link" href="#">View Page</a>
           </div>
-          <div class="name">
-            Nuts for Nuts
-          </div>
-          <div class="address">
-            300 Astor Place
-          </div>
-          <a class="link" href="#">View Page</a>
-        </div>
 
-        <div class="tags-meta">
-          <span>food</span>
-          <span>nuts</span>
-          <span>cheap</span>
-          <span>manhattan</span>
-          <span>yeezus</span>
-          <span>yeezus</span>
-        </div>
-      </div>
-      {% endfor %}
+          <div class="tags-meta">
+            <span>food</span>
+            <span>nuts</span>
+            <span>cheap</span>
+            <span>manhattan</span>
+            <span>yeezus</span>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="right-sidebar"></div>
     </div>
 
     <div id=header>
