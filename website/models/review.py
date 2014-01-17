@@ -18,3 +18,6 @@ class Review(Collection):
 
     def insert(self, **kwargs):
         return super(Review, self).insert(**kwargs)
+
+    def text_fields(self):
+        return ['text', 'user']

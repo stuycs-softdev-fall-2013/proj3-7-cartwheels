@@ -19,6 +19,8 @@ class CartModel(Model):
 
     def __init__(self, db, fs, collection, obj):
         super(CartModel, self).__init__(db, fs, collection, obj)
+        self.review_ids = [r.get_id() for r in self.get_reviews()]
+        self.save()
 
     # Adds image associated with the cart
     def add_image(self, image_file, label):
@@ -56,13 +58,6 @@ class CartModel(Model):
     def get_reviews(self, **kwargs):
         return reviews.find(cart_id=self.get_id(), **kwargs)
 
-    # Get review ids
-    @property
-    def review_ids(self):
-        revs = self.get_reviews()
-        ids = [r.get_id() for r in revs]
-        return ids
-
 
 class Cart(Collection):
 
@@ -70,8 +65,16 @@ class Cart(Collection):
         super(Cart, self).__init__(CartModel)
 
     def insert(self, **kwargs):
-        return super(Cart, self).insert(tags=[], rating=None, **kwargs)
+        return super(Cart, self).insert(tags=[], review_ids=[], rating=None, **kwargs)
 
     # Get by tag function
     def get_by_tag(self, label):
         return [item for item in self.find() if label in item.tags]
+
+    # Names of cart text fields (for searching)
+    def text_fields(self):
+        return ['name']
+
+    # Names of cart location fields (for searching)
+    def location_fields(self):
+        return ['address', 'borough', 'zip_code']
