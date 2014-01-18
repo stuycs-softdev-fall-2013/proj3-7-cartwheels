@@ -1,8 +1,7 @@
 #!/usr/local/bin/python
-from website.models import Collection
 from website.settings import COLLECTIONS
+from website import models
 
-models = Collection()
 
 def clear():
     for key in COLLECTIONS:
