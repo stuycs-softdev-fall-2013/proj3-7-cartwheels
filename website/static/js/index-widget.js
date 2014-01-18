@@ -9,7 +9,7 @@ $(function () {
 
     //when the images load, create collage
     var onImageLoad = function () {
-        $(window).scrollTop(75);
+        $(window).scrollTop(0);
 
         $gallery.removeWhitespace().collagePlus(
             {

@@ -1,6 +1,6 @@
 from flask import session, request
 from bson import ObjectId
-from website import api_key, users, carts, reviews, models
+from website import api_key, users, carts, reviews, models, photos
 import json, urllib, re
 
 
@@ -43,7 +43,7 @@ def search(item_type, keywords, location):
                 search_object = {tfield: kwd}
                 location_fields = carts.location_fields()
 
-                if location is not None:
+                if location != '':
 
                     for lfield in location_fields:
                         loc = re.compile(r'(?: |^)' + location + '(?: |$)', re.IGNORECASE)
@@ -72,7 +72,7 @@ def search(item_type, keywords, location):
 def serve_data():
     item_type = request.args.get('item_type', None)
     keywords = urllib.unquote(request.args.get('keywords')).split(' ')
-    location = request.args.get('location', None)
+    location = request.args.get('location', '')
 
     objs = search(item_type, keywords, location)
 
@@ -93,3 +93,10 @@ def serve_image(image_id):
     data = image.read()
     image.close()
     return data
+
+
+# Default image
+def serve_default():
+    # serve a default image
+    img = photos.find_one(is_default=True)
+    return img.read()
