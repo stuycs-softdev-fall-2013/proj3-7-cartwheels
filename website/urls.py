@@ -16,3 +16,4 @@ app.add_url_rule('/register', view_func=views.register, methods=['GET', 'POST'])
 # Data
 app.add_url_rule('/_data', view_func=views.serve_data)
 app.add_url_rule('/_image/<image_id>', view_func=views.serve_image)
+app.add_url_rule('/_image-default', view_func=views.serve_default)

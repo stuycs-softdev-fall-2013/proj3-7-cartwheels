@@ -1,5 +1,4 @@
 # Models and Collections for carts
-from datetime import datetime
 from website.models.base import Collection, Model
 from website.models.review import Review
 from website.models.tag import Tag
@@ -19,12 +18,14 @@ class CartModel(Model):
 
     def __init__(self, db, fs, collection, obj):
         super(CartModel, self).__init__(db, fs, collection, obj)
-        self.review_ids = [r.get_id() for r in self.get_reviews()]
+        self.url_path = '/carts/%s' % str(self.get_id())
         self.save()
 
     # Adds image associated with the cart
     def add_image(self, image_file, label):
         img = photos.insert(image_file=image_file, is_cart=True, cart_id=self.get_id(), label=label)
+        self.image_paths += img.url_path
+        self.save()
         return img
 
     # Get images associated with cart
@@ -51,6 +52,7 @@ class CartModel(Model):
         rev = reviews.insert(cart_id=self.get_id(), user=user, **kwargs)
         ratings = [r.rating for r in self.get_reviews()]
         self.rating = float(sum(ratings)) / float(len(ratings))
+        self.review_ids += rev.get_id()
         self.save()
         return rev
 
@@ -65,7 +67,7 @@ class Cart(Collection):
         super(Cart, self).__init__(CartModel)
 
     def insert(self, **kwargs):
-        return super(Cart, self).insert(tags=[], review_ids=[], rating=None, **kwargs)
+        return super(Cart, self).insert(tags=[], review_ids=[], image_paths=[], rating=None, url_path='', **kwargs)
 
     # Get by tag function
     def get_by_tag(self, label):
