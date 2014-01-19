@@ -7,49 +7,33 @@ Register
 margin-right: 100px;}
 #text{margin-left:300px; margin-right: 300px}
 #form {margin-right: 430px;}
-
 </style> 
+
+<script>
+var appearText='<div id="text"><p> <center> Fill out the below form with a username and password. We will create an account for you so that you may access reviews of mobile street vendors in New York City. Creating an account will also enable you to edit cart information and allow you to write your own reviews. </p> </center> </div><div id="form"><form><p style="text-align:right"> <b> First Name: </u> </b> <input type="text" name="firstname"> <br> <p style="text-align:right"> <b> Last Name: </u> </b> <input type="text" name="lastname"> <br> <p style="text-align:right"> <b> Email Address: </u> </b> <input type="text" name="email"> <br> <p style="text-align:right"> <b> Username: </u> </b> <input type="text" name="user"> <br> <p style="text-align:right"> <b> Password: </u> </b> <input type="text" name="pass"> <br> <p style="text-align:right"> <b> Confirm Password: </u> </b> <input type="text" name="pass2"> <br></div><center> <input type="submit" value="Submit"> </center> </form><br>'
+var clickedAppear=0;
+var appearText2='<div id="text"><p> <center> If you are a cart owner, you can sign up to manage your cart(s) on this website. After verifying your information, we will upgrade your account, allowing you to add menus to your carts, edit information, modify the picture of your cart, and buy advertisements on your cart page.</p> </center></div><div id="form"><form><p style="text-align:right"> <b> First Name: </u> </b> <input type="text" name="firstname"><br><p style="text-align:right"> <b> Last Name: </u> </b> <input type="text" name="lastname"><br><p style="text-align:right"> <b> Email Address: </u> </b> <input type="text" name="email"> <br> <p style="text-align:right"> <b> Username: </u> </b> <input type="text" name="user"> <br> <p style="text-align:right"> <b> Password: </u> </b> <input type="text" name="pass"> <br> <p style="text-align:right"> <b> Confirm Password: </u> </b> <input type="text" name="pass2"> <br><p style="text-align:right"> <b> Permit Number: </u> </b> <input type="text" name="permit"> <br><p style="text-align:right"> <b> Permit Expiration Date: </u> </b> <input type="text" name="expiraton"> <br></div><center> <input type="submit" value="Submit"> </center> </form><br>'
+var clickedAppear2=0;
+</script>
 
 <div id = "register"> 
 
 <h1> <center> <b> <u> Register to be a CartWheels User! </u> </b> </center> </h1> <br>
 
 
-<h3> <center> Are You a User Trying to Read and Write Reviews? </b> </center> </h3> 
-<div id="text">
-<p> <center> Fill out the below form with a username and password. We will create an account for you so that you may access reviews of mobile street vendors in New York City. Creating an account will also enable you to edit cart information and allow you to write your own reviews. </p> </center> 
-</div>
-<div id="form">
-<form>
-<p style="text-align:right"> <b> First Name: </u> </b> <input type="text" name="firstname"> <br> 
-<p style="text-align:right"> <b> Last Name: </u> </b> <input type="text" name="lastname"> <br> 
-<p style="text-align:right"> <b> Email Address: </u> </b> <input type="text" name="email"> <br> 
-<p style="text-align:right"> <b> Username: </u> </b> <input type="text" name="user"> <br> 
-<p style="text-align:right"> <b> Password: </u> </b> <input type="text" name="pass"> <br> 
-<p style="text-align:right"> <b> Confirm Password: </u> </b> <input type="text" name="pass2"> <br>
-</div>
-<center> <input type="submit" value="Submit"> </center> 
-</form>
-<br> 
-<h3> <center> Are You a Mobile Street Vendor?</b> </center> </h3> 
-<div id="text">
-<p> <center> If you are a cart owner, you can sign up to manage your cart(s) on this website. After verifying your information, we will upgrade your account, allowing you to add menus to your carts, edit information, modify the picture of your cart, and buy advertisements on your cart page.
- </p> </center> 
-</div>
-<div id="form">
-<form>
-<p style="text-align:right"> <b> First Name: </u> </b> <input type="text" name="firstname"> <br> 
-<p style="text-align:right"> <b> Last Name: </u> </b> <input type="text" name="lastname"> <br> 
-<p style="text-align:right"> <b> Email Address: </u> </b> <input type="text" name="email"> <br> 
-<p style="text-align:right"> <b> Username: </u> </b> <input type="text" name="user"> <br> 
-<p style="text-align:right"> <b> Password: </u> </b> <input type="text" name="pass"> <br> 
-<p style="text-align:right"> <b> Confirm Password: </u> </b> <input type="text" name="pass2"> <br>
-<p style="text-align:right"> <b> Permit Number: </u> </b> <input type="text" name="permit"> <br>
-<p style="text-align:right"> <b> Permit Expiration Date: </u> </b> <input type="text" name="expiraton"> <br>
+<h3>
+<center onclick="if(clickedAppear%2==0){getElementById('appear').innerHTML=appearText;clickedAppear++;getElementById('header1').style='color:green;font-style:normal';}else{clickedAppear++;getElementById('appear').innerHTML='';getElementById('header1').style='color:blue; font-style:italic'}">
+<b id="header1" style="color:blue"> <i> Are You a User Trying to Read and Write Reviews? </i> </b> 
+</center>
+</h3> 
 
-
+<div id="appear">
 </div>
-<center> <input type="submit" value="Submit"> </center> 
-</form>
-<br> 
+
+<h3> <center onclick="if(clickedAppear2%2==0){getElementById('appear2').innerHTML=appearText2;clickedAppear2++;getElementById('header2').style='color:green';}else{clickedAppear2++;getElementById('appear2').innerHTML='';getElementById('header2').style='color:blue';}">
+<br> <br> <br> <br> <br> 
+<b id="header2" style="color:blue"> <i> Are You a Mobile Street Vendor? </i> </b> </center> </h3> 
+<div id="appear2">
+</div>
+
 </div>
