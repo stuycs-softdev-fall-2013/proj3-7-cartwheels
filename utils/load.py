@@ -1,10 +1,8 @@
 #!/usr/local/bin/python
-from website.models import Cart, Photo
+from website import carts
 import urllib2
 import json
 
-carts = Cart()
-photos = Photo()
 
 def load():
     carts.remove_all()
@@ -25,7 +23,7 @@ def load():
                     r[k] = ''
 
             carts.insert(lat=r['latitude_wgs84'], lng=r['longitude_wgs84'],
-                    address=r['street'] + ' ' + r['address'],
+                    address=r['address'] + ' ' + r['street'],
                     zip_code=r['zip_code'], borough=r['borough'],
                     name=r['license_permit_holder'])
 
