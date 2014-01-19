@@ -1,10 +1,7 @@
 from flask import render_template
 from utils import base_context
-from website.models import Photo
+from website import photos
 import random
-
-
-photos = Photo()
 
 
 # Index page

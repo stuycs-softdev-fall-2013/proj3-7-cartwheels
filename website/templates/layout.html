@@ -27,12 +27,6 @@
         margin-top: 75px;
       }
 
-      .middle-content {
-        width: 60%;
-        margin-right: auto;
-        margin-left: auto;
-      }
-
       .left-sidebar {
         float: left;
         width: 20%;
@@ -99,23 +93,20 @@
   <body>
     {% block body %}
     {% endblock %}
+    <div class="left-sidebar">
+    {% block left_sidebar %}
+    {% endblock %}
+    </div>
+
     <div class="main-content">
     {% block main_content %}
-      <div class="left-sidebar">
-      {% block left_sidebar %}
-      {% endblock %}
-      </div>
-
-      <div class="middle-content">
-      {% block middle_content %}
-      {% endblock %}
-      </div>
-
-      <div class="right-sidebar">
-      {% block right_sidebar %}
-      {% endblock %}
-      </div>
     {% endblock %}
+    </div>
+
+    <div class="right-sidebar">
+    {% block right_sidebar %}
+    {% endblock %}
+    </div>
     </div>
 
     <div id=header>
@@ -129,6 +120,8 @@
     </div>
   </body>
 
+  <script type="text/javascript" src="{{ url_for('static', filename='js/search-widget.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/header.js') }}"></script>
   {% block scripts %}
   {% endblock %}
 </html>

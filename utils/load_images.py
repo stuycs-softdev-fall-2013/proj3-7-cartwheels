@@ -1,9 +1,9 @@
-from website.models import Photo
+from website import photos
 import os
 
-photos = Photo()
-
 def load_images():
+    photos.remove_all()
+
     photo_dir = "website/static/images"
     fnames = [os.path.realpath(os.path.join(root, name)) for (root, dirs, files) in os.walk(photo_dir) for name in files]
     for name in fnames:
@@ -11,10 +11,10 @@ def load_images():
         fields = name.split('/')
         title = fields[len(fields) - 1]
 
-        if name == '.DS_Store':
-            continue
-
-        if not title in ['.DS_Store', 'search-icon.png']:
+        if 'food_cart' in title:
+            photos.insert(image_file=f, is_default=True, title=title)
+            f.close()
+        elif '.DS_Store' not in title:
             photos.insert(image_file=f, is_cart=True, title=title)
             f.close()
         else:

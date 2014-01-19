@@ -7,9 +7,11 @@ class PhotoModel(Model):
     def __init__(self, db, fs, collection, obj):
         super(PhotoModel, self).__init__(db, fs, collection, obj)
 
-    @property
-    def url_path(self):
-        return '/_image/%s' % str(self.get_id())
+    def read(self):
+        image = self.fs.get(self.get_id())
+        data = image.read()
+        image.close()
+        return data
 
 
 class Photo(Collection):
@@ -19,4 +21,4 @@ class Photo(Collection):
 
     def insert(self, image_file, **kwargs):
         image_id = self.fs.put(image_file.read())
-        return super(Photo, self).insert(_id=image_id, date_added=datetime.now(), **kwargs)
+        return super(Photo, self).insert(_id=image_id, date_added=datetime.now(), url_path='/_image/%s' % str(image_id), **kwargs)

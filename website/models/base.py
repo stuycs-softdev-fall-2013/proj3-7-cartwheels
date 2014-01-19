@@ -21,16 +21,6 @@ class Model(object):
     def get_id(self):
         return self._id
 
-    # Gets the date converted to a string
-    @property
-    def date_string(self):
-        return self.date.strftime('%A, %B %d')
-
-    # Return the url path to this object if it exists
-    @property
-    def url_path(self):
-        pass
-
     # Perform an update
     def save(self):
         for key in self.__dict__:
