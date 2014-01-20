@@ -42,4 +42,10 @@
 	text-size:20%;
 }
 
-
+.user-toolbar{
+	color:white;
+	background-color:#0000FF;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 3px;
+}
