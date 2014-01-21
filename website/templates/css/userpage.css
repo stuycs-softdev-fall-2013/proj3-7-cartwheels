@@ -1,0 +1,51 @@
+.container{
+	
+
+}
+
+.row{
+	margin-left:50px;
+	margin-top:50px;
+}
+
+.col-lg-2{
+	float: left;
+	width: 140px;
+}
+
+
+.col-lg-6{
+	margin-left: 190px;
+}
+ a,
+ a:link,
+ a:visited,
+ a:hover,
+ a:active{
+	text-decoration:none;
+}
+
+.list-group{
+	width:800px;
+	background-color:#0000FF;
+	border-radius: 25px;
+	-moz-border-radius: 25px;
+	padding: 3px 30px 3px;	
+
+}
+	
+.list-group-inner{
+	color:white;
+}
+
+.list-group-h4{
+	text-size:20%;
+}
+
+.user-toolbar{
+	color:white;
+	background-color:#0000FF;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 3px;
+}
