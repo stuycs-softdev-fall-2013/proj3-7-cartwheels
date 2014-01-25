@@ -24,13 +24,15 @@
 <div class="form">
   <div class="form-header">Register as a user</div>
   <form method=POST id=user-form>
-    <input class="input form-input" name="first" type=text placeholder="First Name">
-    <input class="input form-input" name="last"type=text placeholder="Last Name">
-    <input class="input form-input" name="email" type=text placeholder="Email address">
-    <input class="input form-input" name="pass" type=password placeholder="Password">
-    <input type=submit name=user-submit value=register>
+    <input class="input form-input required" name="first" type=text placeholder="First Name">
+    <input class="input form-input required" name="last"type=text placeholder="Last Name">
+    <input class="input form-input required" name="email" type=text placeholder="Email address">
+    <input class="input form-input required" name="pass" type=password placeholder="Password">
+    <input type=submit value=register>
   </form>
 
+  <div class="form-errors hidden">
+  </div>
   <a class="toggle-desc" href=#>more information</a>
   <div class="description hidden">
   Fill out the above form with your name, email, and password in order to access reviews of mobile street vendors in NYC and to write your own reviews.
@@ -40,14 +42,16 @@
 <div class="form">
   <div class="form-header">Register as a cart owner</div>
   <form method=POST id=owner-form>
-    <input class="input form-input" name="first" type=text placeholder="First Name">
-    <input class="input form-input" name="last"type=text placeholder="Last Name">
-    <input class="input form-input" name="license"type=text placeholder="Cart License Number">
+    <input class="input form-input required" name="first" type=text placeholder="First Name">
+    <input class="input form-input required" name="last"type=text placeholder="Last Name">
+    <input class="input form-input required" name="license"type=text placeholder="Cart License Number">
     <input class="input form-input" name="email" type=text placeholder="Email address">
-    <input class="input form-input" name="pass" type=password placeholder="Password">
-    <input type=submit name=owner-submit value=register>
+    <input class="input form-input required" name="pass" type=password placeholder="Password">
+    <input type=submit value=register>
   </form>
 
+  <div class="form-errors hidden">
+  </div>
   <a class="toggle-desc" href=#>more information</a>
   <div class="description hidden">
     If you are a cart owner, you can sign up to manage your cart(s) on this website. 
@@ -61,5 +65,6 @@
 
 {% block scripts %}
 <!--scripts-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/form-utils.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/register-widget.js') }}"></script>
 {% endblock %}

@@ -14,10 +14,19 @@
 <div class="form">
   <div class="form-header">Login</div>
   <form method=POST>
-    <input class="input form-input" name="email" type=text placeholder="Email address">
-    <input class="input form-input" name="pass" type=password placeholder="Password">
+    <input class="input form-input required" name="email" type=text placeholder="Email address">
+    <input class="input form-input required" name="pass" type=password placeholder="Password">
     <input type=submit name=button value=login>
   </form>
+
+  <div class="form-errors hidden">
+  </div>
 </div>
 
+{% endblock %}
+
+
+{% block scripts %}
+<!--scripts-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/form-utils.js') }}"></script>
 {% endblock %}
