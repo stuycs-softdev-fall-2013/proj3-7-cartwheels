@@ -55,7 +55,6 @@ def register():
     if request.method == 'POST':
         form = request.form
 
-        print form
         if not form.has_key('license'):
             first = form['first']
             last = form['last']

@@ -17,7 +17,7 @@ $(function () {
                     $errors.removeClass('hidden');
                 }
 
-                $errors.text('Some required fields were left empty');
+                $errors.text('Some required fields were left blank');
                 okaySubmit = false;
                 return 0;
             }

@@ -4,8 +4,10 @@ $(function () {
     var $toggleInfo = $('.toggle-desc');
 
     var toggleDescription = function (e) {
-        var $this = $(this.parentNode),
-            $info = $this.find('.description');
+        var $this = $(this),
+            $info = $this.parent().find('.description');
+        
+        console.log(this.parentNode);
 
         if ($info.hasClass('hidden')) {
             $info.slideDown();
