@@ -2,19 +2,6 @@
 
 {% block head %}
 <style>
-  .form {
-    display: inline-table;
-    width: 40%;
-    margin-right: 100px;
-    margin-top: 50px;
-  }
-
-  .form-header {
-    font-size: 25px;
-    border-bottom: 1px solid #bbb;
-    padding-bottom: 5px;
-  }
-
   .toggle-desc {
     display: inline-block;
     margin-top: 15px;
@@ -29,15 +16,6 @@
     font-size: 20px;
     line-height: 30px;
   }
-
-  .form-input {
-    display: block;
-    height: 30px;
-    width: 200px;
-    margin-top: 20px;
-    font-size: 15px;
-    padding-left: 5px;
-  }
 </style>
 {% endblock %}
 
@@ -49,12 +27,13 @@
     <input class="input form-input" name="first" type=text placeholder="First Name">
     <input class="input form-input" name="last"type=text placeholder="Last Name">
     <input class="input form-input" name="email" type=text placeholder="Email address">
-    <input class="input form-input" name="pass" type=text placeholder="Password">
+    <input class="input form-input" name="pass" type=password placeholder="Password">
+    <input type=submit name=user-submit value=register>
   </form>
 
   <a class="toggle-desc" href=#>more information</a>
   <div class="description hidden">
-  Fill out the below form with a username and password in order to access reviews of mobile street vendors in NYC and to write your own reviews.
+  Fill out the above form with your name, email, and password in order to access reviews of mobile street vendors in NYC and to write your own reviews.
   </div>
 </div>
 
@@ -65,7 +44,8 @@
     <input class="input form-input" name="last"type=text placeholder="Last Name">
     <input class="input form-input" name="license"type=text placeholder="Cart License Number">
     <input class="input form-input" name="email" type=text placeholder="Email address">
-    <input class="input form-input" name="pass" type=text placeholder="Password">
+    <input class="input form-input" name="pass" type=password placeholder="Password">
+    <input type=submit name=owner-submit value=register>
   </form>
 
   <a class="toggle-desc" href=#>more information</a>

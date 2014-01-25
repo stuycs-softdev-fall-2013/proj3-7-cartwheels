@@ -1,1 +1,23 @@
 {% extends "layout.html" %}
+
+{% block head %}
+<style>
+  .form {
+    width: 50%;
+  }
+</style>
+{% endblock %}
+
+
+{% block main_content %}
+
+<div class="form">
+  <div class="form-header">Login</div>
+  <form method=POST>
+    <input class="input form-input" name="email" type=text placeholder="Email address">
+    <input class="input form-input" name="pass" type=password placeholder="Password">
+    <input type=submit name=button value=login>
+  </form>
+</div>
+
+{% endblock %}

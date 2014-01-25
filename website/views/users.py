@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for
+from flask import render_template, session, request, redirect, url_for
 from website import users
 from website.views.utils import base_context
 
@@ -21,8 +21,9 @@ def user_page(username=None):
 
 # Logout
 def logout():
-    if 'username' in session:
-        session.pop('username')
+    context = base_context()
+    if context['user'] is not None:
+        session['username'] = None
 
     return redirect(url_for('index'))
 
@@ -33,6 +34,15 @@ def login():
     if context['user'] is not None:
         return redirect(url_for('index'))
 
+    if request.method == 'POST':
+        form = request.form
+        user = users.find_one(username=form['email'], password=form['pass'])
+
+        if user is not None:
+            session['username'] = user.username
+
+        return redirect(url_for('index'))
+
     return render_template('login.html', **context)
 
 
@@ -41,5 +51,26 @@ def register():
     context = base_context()
     if context['user'] is not None:
         return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        form = request.form
+
+        if form.has_key('user-submit'):
+            first = form['first']
+            last = form['last']
+            email = form['email']
+            password = form['pass']
+
+            if users.find_one(username=email) is None:
+                user = users.insert(first_name=first, last_name=last, username=email, password=password)
+                session['username'] = user.username
+
+            return redirect(url_for('index'))
+
+        else:
+            first = form['first']
+            last = form['last']
+            email = form['email']
+            password = form['pass']
 
     return render_template('register.html', **context)
