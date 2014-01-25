@@ -2,6 +2,7 @@
   <head>
     <!--include javascript files-->
     <script type="text/javascript" src="{{ url_for('static', filename='include/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='include/imagesloaded.pkgd.min.js') }}"></script>
 
     <!--stylesheets-->
     <style>
@@ -25,6 +26,12 @@
       .main-content {
         overflow: hidden;
         margin-top: 75px;
+      }
+
+      .middle-bar {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .left-sidebar {
@@ -98,7 +105,7 @@
     {% endblock %}
     </div>
 
-    <div class="main-content">
+    <div class="main-content middle-bar">
     {% block main_content %}
     {% endblock %}
     </div>
@@ -120,6 +127,7 @@
     </div>
   </body>
 
+  <script type="text/javascript" src="{{ url_for('static', filename='js/page-utils.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/search-widget.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/header.js') }}"></script>
   {% block scripts %}
