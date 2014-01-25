@@ -1,12 +1,11 @@
 $(function () {
     "use strict";
 
-    var $descriptions = $('.description'),
-        $toggleInfo = $('.toggle-desc');
+    var $toggleInfo = $('.toggle-desc');
 
     var toggleDescription = function (e) {
-        var $this = $(this),
-            $info = $(this.parentNode).find('.description');
+        var $this = $(this.parentNode),
+            $info = $this.find('.description');
 
         if ($info.hasClass('hidden')) {
             $info.slideDown();
