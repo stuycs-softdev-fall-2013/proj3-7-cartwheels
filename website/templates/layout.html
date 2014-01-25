@@ -45,18 +45,19 @@
       }
 
       /* generic search bar*/
-      .search {
+      .input {
         display: inline;
         -webkit-border-radius: 2px;
         -moz-border-radius: 2px;
         border-radius: 2px;
+        border: 1px solid #aaa;
       }
 
-      .search:focus {
-        border: 1px solid #fafafa;
+      .input:focus {
+        border: 1px solid #aaa;
         -webkit-box-shadow: 0 0 6px #007eff;
         -moz-box-shadow: 0 0 5px #007eff;
-        box-shadow: 0 0 5px #007eff;
+        box-shadow: none;
         outline-color: none;
         transition: outline-color .5s, box-shadow .5s;
       }
@@ -67,6 +68,32 @@
         font-size: 13px;
         padding-left: 5px;
         border: 1px solid #555555;
+      }
+
+      .header-links {
+        position: relative;
+        display: inline;
+        top: 27%;
+      }
+
+      .header-links a {
+        color: white;
+        font-size: 22px;
+        margin-right: 35px;
+        text-decoration: none;
+      }
+
+      .header-links a:hover {
+        color: #eee;
+      }
+
+      .header-links-left {
+        left: 20%;
+      }
+
+      .header-links-right {
+        float: right;
+        right: 15%;
       }
 
       #kwds {
@@ -117,12 +144,24 @@
     </div>
 
     <div id=header>
+      <div class="header-links header-links-left">
+        <a href="{{url_for('index')}}">Home</a>
+        <a href="/">About</a>
+      </div>
+
       <!--search input to find carts-->
       <div id=input-container class=centered-absolute>
         <div id=search-input>
-          <input id=kwds class="search main-search" type=text placeholder="Find a food cart by name, food type, tags">
-          <input id=loc class="search main-search" type=text placeholder="Around...">
+          <input id=kwds class="input main-search" type=text placeholder="Find a food cart by name, food type, tags">
+          <input id=loc class="input main-search" type=text placeholder="Around...">
         </div>
+      </div>
+
+      <div class="header-links header-links-right">
+        {% if user == None %}
+        <a href="{{url_for('register')}}">Register</a>
+        <a href="{{url_for('login')}}">Login</a>
+        {% endif %}
       </div>
     </div>
   </body>

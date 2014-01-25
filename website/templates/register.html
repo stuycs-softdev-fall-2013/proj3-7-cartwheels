@@ -1,59 +1,85 @@
-<title> 
-Register
-</title>
+{% extends "layout.html" %}
 
-<style> 
-#register {margin-left: 100px;
-margin-right: 100px;}
-#text{margin-left:300px; margin-right: 300px}
-</style> 
+{% block head %}
+<style>
+  .form {
+    display: inline-table;
+    width: 40%;
+    margin-right: 100px;
+    margin-top: 50px;
+  }
 
-<script>
-var appearText='<div id="text"><p> <center> Fill out the below form with a username and password. We will create an account for you so that you may access reviews of mobile street vendors in New York City. Creating an account will also enable you to edit cart information and allow you to write your own reviews. </p> </center> </div><div id="form"><form><p style="text-align:center"> <b> First Name: </u> </b> <input type="text" name="firstname"> <br> <p style="text-align:center"> <b> Last Name: </u> </b> <input type="text" name="lastname"> <br> <p style="text-align:center"> <b> Email Address: </u> </b> <input type="text" name="email"> <br> <p style="text-align:center"> <b> Username: </u> </b> <input type="text" name="user"> <br> <p style="text-align:center"> <b> Password: </u> </b> <input type="text" name="pass"> <br> <p style="text-align:center"> <b> Confirm Password: </u> </b> <input type="text" name="pass2"> <br></div><center> <input type="submit" value="Submit"> </center> </form><br>'
-var clickedAppear=0;
-var appearText2='<div id="text"><p> <center> If you are a cart owner, you can sign up to manage your cart(s) on this website. After verifying your information, we will upgrade your account, allowing you to add menus to your carts, edit information, modify the picture of your cart, and buy advertisements on your cart page.</p> </center></div><div id="form"><form><p style="text-align:center"> <b> First Name: </u> </b> <input type="text" name="firstname"><br><p style="text-align:center"> <b> Last Name: </u> </b> <input type="text" name="lastname"><br><p style="text-align:center"> <b> Email Address: </u> </b> <input type="text" name="email"> <br> <p style="text-align:center"> <b> Username: </u> </b> <input type="text" name="user"> <br> <p style="text-align:center"> <b> Password: </u> </b> <input type="text" name="pass"> <br> <p style="text-align:center"> <b> Confirm Password: </u> </b> <input type="text" name="pass2"> <br><p style="text-align:center"> <b> Permit Number: </u> </b> <input type="text" name="permit"> <br><p style="text-align:center"> <b> Permit Expiration Date: </u> </b> <input type="text" name="expiraton"> <br></div><center> <input type="submit" value="Submit"> </center> </form><br>'
-var clickedAppear2=0;
-var startText2="<p align='center'><b> 1. </b> Change Images of Your Cart <br> <b> 2. </b> Communicate with Users who Access Your Cart <br> <b> 3. </b> View Business Trends <br> <b> 4. </b> Advertise on Your Cart Page <br> <b> 5. </b> Add Your Cart Menu <br> </p>"
-var startText1="<p align='center'><b> 1. </b> Review Mobile Street Vendors <br> <b> 2. </b> Get Directions to Local Food Carts/Trucks <br> <b> 3. </b> Access Information about Carts <br> <b> 4. </b> View Cart Hours of Operation <br> <b> 5. </b> Read Other Users Reviews <br></p>"
-</script>
+  .form-header {
+    font-size: 25px;
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 5px;
+  }
 
-<div id = "register"> 
-<div style="font-family:'arial'; padding-top:20px"> 
-<center> <b>
-<h1> <u> Register to be a CartWheels User! </u> </h1> 
-<h3> Click on the blue text below to sign up for an account </h3>
-<br> 
-</b> </center> 
-<h3>
-<center onclick="if(clickedAppear%2==0){getElementById('appear').innerHTML=appearText;clickedAppear++;getElementById('header1').style='color:green;font-style:normal';getElementById('start1').innerHTML='';}else{clickedAppear++;getElementById('appear').innerHTML='';getElementById('header1').style='color:blue; font-style:italic';getElementById('start1').innerHTML=startText1}">
-<b id="header1" style="color:blue"> <i> Create a <u> User</u> Account</i> </b> 
-<p>
-</center>
-</h3> 
-<div id="start1">
-<p align="center">
-<b> 1. </b> Review Mobile Street Vendors <br> 
-<b> 2. </b> Get Directions to Local Food Carts/Trucks <br> 
-<b> 3. </b> Access Information about Carts <br> 
-<b> 4. </b> View Cart Hours of Operation <br> 
-<b> 5. </b> Read Other Users Reviews <br> 
-</p>
-</div>
-<div id="appear">
+  .toggle-desc {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #6B6BB2;
+  }
+
+  .description {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .form-input {
+    display: block;
+    height: 30px;
+    width: 200px;
+    margin-top: 20px;
+    font-size: 15px;
+    padding-left: 5px;
+  }
+</style>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="form">
+  <div class="form-header">Register as a user</div>
+  <form method=POST id=user-form>
+    <input class="input form-input" name="first" type=text placeholder="First Name">
+    <input class="input form-input" name="last"type=text placeholder="Last Name">
+    <input class="input form-input" name="email" type=text placeholder="Email address">
+    <input class="input form-input" name="pass" type=text placeholder="Password">
+  </form>
+
+  <a class="toggle-desc" href=#>more information</a>
+  <div class="description hidden">
+  Fill out the below form with a username and password in order to access reviews of mobile street vendors in NYC and to write your own reviews.
+  </div>
 </div>
 
-<h3> <center onclick="if(clickedAppear2%2==0){getElementById('appear2').innerHTML=appearText2;clickedAppear2++;getElementById('header2').style='color:green';getElementById('start2').innerHTML=''}else{clickedAppear2++;getElementById('appear2').innerHTML='';getElementById('header2').style='color:blue';getElementById('start2').innerHTML=startText2}">
-<b id="header2" style="color:blue"> <i> Create a <u> Cart Manager</u> Account (for Cart Owners) </i> </b> </center> </h3> 
-<div id="start2">
-<p align="center">
-<b> 1. </b> Change Images of Your Cart <br> 
-<b> 2. </b> Communicate with Users who Access Your Cart <br> 
-<b> 3. </b> View Business Trends <br> 
-<b> 4. </b> Advertise on Your Cart Page <br> 
-<b> 5. </b> Add Your Cart Menu <br> 
-</p>
-</div>
-<div id="appear2">
+<div class="form">
+  <div class="form-header">Register as a cart owner</div>
+  <form method=POST id=owner-form>
+    <input class="input form-input" name="first" type=text placeholder="First Name">
+    <input class="input form-input" name="last"type=text placeholder="Last Name">
+    <input class="input form-input" name="license"type=text placeholder="Cart License Number">
+    <input class="input form-input" name="email" type=text placeholder="Email address">
+    <input class="input form-input" name="pass" type=text placeholder="Password">
+  </form>
+
+  <a class="toggle-desc" href=#>more information</a>
+  <div class="description hidden">
+    If you are a cart owner, you can sign up to manage your cart(s) on this website. 
+    <br>
+    <br>
+    After verifying your information, we will upgrade your account, allowing you to add menus to your carts, edit information, modify the photos of your cart, and buy advertisements.
+  </div>
 </div>
 
-</div>
+{% endblock %}
+
+{% block scripts %}
+<!--scripts-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/register-widget.js') }}"></script>
+{% endblock %}
