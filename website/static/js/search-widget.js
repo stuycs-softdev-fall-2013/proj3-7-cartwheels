@@ -13,29 +13,13 @@ $(function () {
     //Constants
     var targetImgHeight = 75;
 
-    //Resize images in the search results
-    var resizeImageResults = function () {
-        var imageList = $mainContent.find('img');
-
-        imageList.each(function () {
-            var $img = $(this);
-            var w = (typeof $img.data('width') !== undefined) ? $img.data('width') : $img.width(),
-                h = (typeof $img.data('height') !== undefined) ? $img.data('height') : $img.height(),
-                aspectRatio = w / h,
-                nw = aspectRatio * targetImgHeight;
-
-            this.style.height = targetImgHeight + 'px';
-            this.style.width = nw + 'px';
-        });
-    };
-
     //Add border on last search result
     var borderLast = function () {
         var searchItems = $mainContent.find('.search-item'),
             lastItem = $(searchItems[searchItems.length - 1]);
 
         lastItem.css({
-            'border-bottom': '1px solid #efefef'
+            'border-bottom': '1px solid #eee'
         });
     };
 
@@ -68,7 +52,8 @@ $(function () {
                 $rating = $('<div></div>'),
                 $name = $('<div></div>'),
                 $address = $('<div></div>'),
-                $link = $('<a></a>');
+                $link = $('<a>View Page</a>'),
+                $tagsDiv = $('<div></div>');
 
             $contentDiv.addClass('content-meta');
 
@@ -92,7 +77,7 @@ $(function () {
             $item.append($contentDiv);
 
             //add tags
-            var $tagsDiv = $('<div></div>');
+            $tagsDiv.addClass('tags-meta');
             $.each(datum.tags, function (index, tag) {
                 $tagsDiv.append('<span>' + tag + '</span>');
             });
@@ -104,7 +89,7 @@ $(function () {
         });
 
         $mainContent.append($searchResults);
-        resizeImageResults();
+        resizeImages($mainContent.get(0), targetImgHeight);
         borderLast();
     };
 
@@ -114,6 +99,7 @@ $(function () {
             //Clear the main content
             //Change later to redirect page
             $mainContent.empty();
+            $mainContent.addClass('middle-bar');
             
             $(window).scrollTop(0);
 

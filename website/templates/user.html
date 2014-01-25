@@ -1,1 +1,12 @@
-User
+{% extends "layout.html" %}
+{% block main_content %}
+
+    <h2>Toolbar</h2>
+    <p>Use the below buttons to navigate between the user features</p>
+    <p><a class="user-toolbar" href="/" role="button">Home</a></p>
+    <p><a class="user-toolbar" href="/" role="button">Profile</a></p>
+
+    {% for rev in user.get_reviews() %}
+    {% endfor %}
+
+{% endblock %}

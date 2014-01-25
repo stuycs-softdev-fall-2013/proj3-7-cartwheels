@@ -3,7 +3,6 @@
 <!--include javascript files-->
 <script type="text/javascript" src="{{ url_for('static', filename='include/jquery.collagePlus.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='include/jquery.removeWhitespace.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='include/imagesloaded.pkgd.min.js') }}"></script>
 
 <!--include css files-->
 <link rel="stylesheet" href="{{ url_for('static', filename='include/transitions.css') }}">
@@ -25,7 +24,7 @@
     display: block;
     width: 350px;
     height: 20%;
-    border: 1px solid #efefef;
+    border: 1px solid #eee;
     border-bottom: none;
   }
 
@@ -33,16 +32,16 @@
     position: absolute;
     text-align: center;
     display: inline;
-    width: 75px;
-    height: 75px;
-    border-radius: 5px;
-    border: 3px solid #222222;
-    background: #222222;
+    width: 82px;
+    height: 82px;
+    background-color: #ccc;
+    border: 1px solid #bbb;
     overflow: hidden;
   }
 
   .image-meta img {
     z-index: 1;
+    margin-top: 3px;
   }
 
   .content-meta {

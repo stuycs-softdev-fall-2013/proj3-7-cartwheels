@@ -61,13 +61,20 @@ class CartModel(Model):
         return reviews.find(cart_id=self.get_id(), **kwargs)
 
 
+    # Def add menu
+    def add_menu(self, menu):
+        self.menu += menu
+        self.save()
+
+
 class Cart(Collection):
 
     def __init__(self):
         super(Cart, self).__init__(CartModel)
 
     def insert(self, **kwargs):
-        return super(Cart, self).insert(tags=[], review_ids=[], image_paths=[], rating=None, url_path='', **kwargs)
+        return super(Cart, self).insert(tags=[], review_ids=[], image_paths=[],
+                rating=None, url_path='', menu=[], **kwargs)
 
     # Get by tag function
     def get_by_tag(self, label):
