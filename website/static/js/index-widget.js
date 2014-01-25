@@ -7,6 +7,8 @@ $(function () {
         $inputText = $inputBox.find('input'),
         $mainContent = $('.main-content');
 
+    $mainContent.removeClass('middle-bar');
+
     //when the images load, create collage
     var onImageLoad = function () {
         $(window).scrollTop(0);
