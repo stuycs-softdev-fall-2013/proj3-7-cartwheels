@@ -6,8 +6,10 @@ app.add_url_rule('/', view_func=views.index)
 # Carts
 app.add_url_rule('/carts/<cid>', view_func=views.cart_page, methods=['GET', 'POST'])
 app.add_url_rule('/carts/<cid>/manage', view_func=views.manage_cart, methods=['GET', 'POST'])
+app.add_url_rule('/carts/<cid>/review', view_func=views.review, methods=['GET', 'POST'])
 
 # Users
+app.add_url_rule('/profile', view_func=views.profile, methods=['GET', 'POST'])
 app.add_url_rule('/users/<username>', view_func=views.user_page, methods=['GET', 'POST'])
 app.add_url_rule('/logout', view_func=views.logout)
 app.add_url_rule('/login', view_func=views.login, methods=['GET', 'POST'])
