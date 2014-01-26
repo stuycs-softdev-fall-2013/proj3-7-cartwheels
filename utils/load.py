@@ -24,14 +24,25 @@ def load():
                 if not r.has_key(k):
                     r[k] = ''
 
-            carts.insert(name=r['license_permit_holder'],
-                    owner=r['license_permit_holder_name'],
-                    permit_number=r['license_permit_number'],
-                    issuance=r['permit_issuance_date'],
-                    expiration=r['permit_expiration_date'],
-                    loc=[ float(r['longitude_wgs84']),
-                        float(r['latitude_wgs84']) ],
-                    zip_code=r['zip_code'], borough=r['borough'])
+            try:
+                carts.insert(name=r['license_permit_holder'],
+                        owner=r['license_permit_holder_name'],
+                        permit_number=r['license_permit_number'],
+                        issuance=r['permit_issuance_date'],
+                        expiration=r['permit_expiration_date'],
+                        loc=[ float(r['latitude_wgs84']),
+                            float(r['longitude_wgs84'])],
+                        zip_code=r['zip_code'], borough=r['borough'])
+
+            except ValueError:
+                carts.insert(name=r['license_permit_holder'],
+                        owner=r['license_permit_holder_name'],
+                        permit_number=r['license_permit_number'],
+                        issuance=r['permit_issuance_date'],
+                        expiration=r['permit_expiration_date'],
+                        loc=[ None,
+                            None ],
+                        zip_code=r['zip_code'], borough=r['borough'])
 
     out = [c for c in carts.find()]
     print len(out)

@@ -31,7 +31,7 @@ def serialize(obj):
 
 
 # Check if a cart is in a certain bounds
-def get_bounds(address):
+def get_bounds(address, offset, number):
     data = urllib2.urlopen('http://maps.googleapis.com/maps/api/geocode/json?api_key%s&sensor=false&address=%s' % (api_key, urllib.quote(address)))
     data = json.loads(data.read())
     geometry = data['results'][0]['geometry']
@@ -48,7 +48,7 @@ def get_bounds(address):
             loc = geometry['location']
             box = [ [loc['lat'] - DIST_OFFSET, loc['lng'] - DIST_OFFSET], [loc['lat'] + DIST_OFFSET, loc['lng'] + DIST_OFFSET] ]
 
-        results += carts.within(box);
+        results += carts.within(box, offset, number);
 
     except ValueError:
         pass
@@ -58,29 +58,27 @@ def get_bounds(address):
 
 
 # Search for items using regex find
-def search(item_type, keywords, location):
+def search(item_type, offset, number, keywords, location):
     objs = []
 
     # Change objs depending on item type
     if item_type == 'cart':
 
-        if keywords[0] == '' and len(keywords) == 1:
-            objs = carts.find()
+        for word in keywords:
 
-        else:
+            if word == '':
+                continue
 
-            for word in keywords:
+            for tfield in carts.text_fields():
+                kwd = re.compile(r'(?: |^)' + word + '(?: |$)', re.IGNORECASE)
+                search_object = {tfield: kwd}
 
-                for tfield in carts.text_fields():
-                    kwd = re.compile(r'(?: |^)' + word + '(?: |$)', re.IGNORECASE)
-                    search_object = {tfield: kwd}
-
-                    if len(objs) == 0:
-                        objs += carts.find(**search_object)
+                if len(objs) == 0:
+                    objs += carts.find(offset, number, **search_object)
 
 
         if location != '':
-            objs += get_bounds(location)
+            objs += get_bounds(location, offset, number)
 
     elif item_type == 'review':
 
@@ -99,8 +97,10 @@ def serve_data():
     item_type = request.args.get('item_type', None)
     keywords = urllib.unquote(request.args.get('keywords')).split(' ')
     location = request.args.get('location', '')
+    offset = request.args.get('offset', None)
+    number = request.args.get('number', None)
 
-    objs = search(item_type, keywords, location)
+    objs = search(item_type, offset, number, keywords, location)
 
     results = [o._obj for o in objs]
 
