@@ -108,13 +108,31 @@
     Name
   </div>
   <div class="name info">
-    {{cart.name}}
+    {% if cart.name != '' %}
+      {{cart.name}}
+    {% else %}
+      Unknown
+    {% endif %}
   </div>
   <div class="meta">
     Owner
   </div>
   <div class="owner info">
-    Benjamin Attal
+    {% if cart.owner != '' %}
+      {{cart.owner}}
+    {% else %}
+      Unknown
+    {% endif %}
+  </div>
+  <div class="meta">
+    Zip Code
+  </div>
+  <div class="zip info">
+    {% if cart.zip_code != '' %}
+      {{cart.zip_code}}
+    {% else %}
+      Unknown
+    {% endif %}
   </div>
   <div class="meta">
     Rating
@@ -123,28 +141,22 @@
     {{cart.rating}}
   </div>
   <div class="meta">
-    Address
-  </div>
-  <div class="address info">
-    {{cart.address}}
-  </div>
-  <div class="meta">
     Registration Number
   </div>
   <div class="registration-number info">
-    224597617
+    {{cart.permit_number}}
   </div>
   <div class="meta">
     Permit Issued
   </div>
   <div class="permit-issuance info">
-    10/13/1995
+    {{cart.issuance}}
   </div>
   <div class="meta">
     Permit Expires
   </div>
   <div class="permit-expiration info">
-    10/13/2014
+    {{cart.expiration}}
   </div>
 </div>
 
