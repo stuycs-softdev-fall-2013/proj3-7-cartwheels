@@ -1,7 +1,7 @@
 from flask import session, request
 from bson import ObjectId
-from website import api_key, users, carts, reviews, models
-import json
+from website import api_key, users, carts, reviews, models, photos
+import json, urllib, re
 
 
 def base_context():
@@ -29,25 +29,52 @@ def serialize(obj):
                 obj[k] = str(obj[k])
 
 
-# Serves the data from the backend to the frontend js using json module
-def serve_carts():
-    # Get iterable copy of args
-    item_type = request.args.get('item_type')
-    rargs = request.args.copy()
-    kwargs = {}
-
-    # Copy request args into a copy
-    for k in rargs.keys():
-        if k != 'item_type':
-            kwargs[k] = rargs[k]
-
-        if '_id' in k:
-            kwargs[k] = ObjectId(rargs[k])
+# Search for items using regex find
+def search(item_type, keywords, location):
+    objs = []
 
     # Change objs depending on item type
-    objs = carts.find(**kwargs)
-    if item_type == 'review':
-        objs = reviews.find(**kwargs)
+    if item_type == 'cart':
+
+        for word in keywords:
+
+            for tfield in carts.text_fields():
+                kwd = re.compile(r'(?: |^)' + word + '(?: |$)', re.IGNORECASE)
+                search_object = {tfield: kwd}
+                location_fields = carts.location_fields()
+
+                if location != '':
+
+                    for lfield in location_fields:
+                        loc = re.compile(r'(?: |^)' + location + '(?: |$)', re.IGNORECASE)
+                        search_object[lfield] = loc
+                        objs += carts.find(**search_object)
+
+                        search_object.pop(lfield, None)
+
+                if len(objs) == 0:
+                    objs += carts.find(**search_object)
+
+    elif item_type == 'review':
+
+        for word in keywords:
+
+            for tfield in reviews.text_fields():
+                kwd = re.compile(r'(?: |^)' + word + '(?: |$)', re.IGNORECASE)
+                search_object = {tfield: kwd}
+                location_fields = carts.location_fields()
+                objs += reviews.find(**search_object)
+
+    return objs
+
+
+# Serves the data from the backend to the frontend js using json module
+def serve_data():
+    item_type = request.args.get('item_type', None)
+    keywords = urllib.unquote(request.args.get('keywords')).split(' ')
+    location = request.args.get('location', '')
+
+    objs = search(item_type, keywords, location)
 
     results = [o._obj for o in objs]
 
@@ -66,3 +93,10 @@ def serve_image(image_id):
     data = image.read()
     image.close()
     return data
+
+
+# Default image
+def serve_default():
+    # serve a default image
+    img = photos.find_one(is_default=True)
+    return img.read()

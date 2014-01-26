@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends "layout.html" %}
 {% block head %}
 <!--include javascript files-->
@@ -51,7 +50,11 @@
   }
 
   .content-meta div {
+    display: inline-block;
     line-height: 27px;
+    height: 27px;
+    width: 70%;
+    overflow: hidden;
   }
 
   .content-meta .link {
@@ -67,7 +70,6 @@
     margin-top: 15px;
     margin-left: 15px;
     line-height: 50px;
-    overflow: hidden;
   }
 
   .tags-meta span {
@@ -98,7 +100,6 @@
   #gallery {
     position: absolute;
     padding: 5px;
-    margin-top: 75px;
   }
 
   #gallery img {
@@ -110,7 +111,10 @@
 {% endblock %}
 
 {% block body %}
-<title>home</title>
+<title>Home</title>
+{% endblock %}
+
+{% block main_content %}
 
 <!--cycling image gallery-->
 <div id=gallery>
@@ -123,41 +127,6 @@
   Cartwheels
 </div>
 
-{% endblock %}
-
-<!--search results display area-->
-{% block middle_content %}
-<ul>
-  <div class="search-label">Results around 'Manhattan'</div>
-  {% for i in range(0, 20) %}
-  <li class="centered-relative search-item">
-    <div class="image-meta">
-      <img src="{{ imagelist[i].url_path }}">
-    </div>
-
-    <div class="content-meta">
-      <div class="rating">
-        [Rating]
-      </div>
-      <div class="name">
-        Nuts for Nuts
-      </div>
-      <div class="address">
-        300 Astor Place
-      </div>
-      <a class="link" href="#">View Page</a>
-    </div>
-
-    <div class="tags-meta">
-      <span>food</span>
-      <span>nuts</span>
-      <span>cheap</span>
-      <span>manhattan</span>
-      <span>yeezus</span>
-    </div>
-  </li>
-  {% endfor %}
-</ul>
 {% endblock %}
 
 {% block scripts %}
