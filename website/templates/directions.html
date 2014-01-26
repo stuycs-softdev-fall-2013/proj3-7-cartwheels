@@ -4,125 +4,13 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Cartwheels: Directions</title>
-    
-    <style>
-      html, body, #map-canvas {
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-      }
-      #panel {
 
+<link rel="stylesheet" type="text/css" href="css/directions.css">
 
-	margin-right:1000px;;
-
-      z-index: 5;
-      background-color: #fff;
-      padding: 5px;
-      border: 1px solid #999;
-      }
-    </style>
-
-    <style>
-      #directions-panel {
-      height: 100%;
-      float: right;
-      width: 390px;
-      overflow: auto;
-      }
-
-      #map-canvas {
-
-	height: 300px;
-	width: 300px;
-      }
-
-      @media print {
-      #map-canvas {
-      height: 500px;
-      margin: 0;
-      }
-
-      #directions-panel {
-      float: none;
-      width: auto;
-      }
-      }
-    </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Yrvg4i4oRLf9cbnFpyS3YXvxX1PhT5E&v=3.exp&sensor=false"></script>
-    <script>
-      var directionsDisplay;
-      var directionsService = new google.maps.DirectionsService();
-      var map;
-      var geocoder;
+<script src="js/directions.js"></script>
 
-      var sAddress = "{{saddress}}";
-      var eAddress = "{{eaddress}}";
-
-      var slat, slng, elat, elng;
-      var start, end;
-
-
-      function initialize() {
-      geocoder = new google.maps.Geocoder();
-
-      directionsDisplay = new google.maps.DirectionsRenderer();
-
-      
-
-      var mapOptions = {
-      zoom: 18,
-      center: new google.maps.LatLng(40.717975, -74.014037)
-      }
-      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-      directionsDisplay.setMap(map);
-      directionsDisplay.setPanel(document.getElementById('directions-panel'));
-      codeAddress();
-      
-      }
-
-      function codeAddress() {
-
-      geocoder.geocode( { 'address': sAddress}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-      start = results[0].geometry.location;
-      map.setCenter(results[0].geometry.location);
-      }
-      else {
-      alert("Geocode was not successful because: " + status);
-      }
-      });
-      
-
-      geocoder.geocode( { 'address': eAddress}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-      end = results[0].geometry.location;
-      }
-      else {
-      alert("Geocode was not successful because: " + status);
-      }
-      });
-      
-      }
-
-      function calcRoute() {
-      var selectedMode = document.getElementById('mode').value;
-      var request = {
-      origin: start,
-      destination: end,
-      travelMode: google.maps.TravelMode[selectedMode]
-      };
-      directionsService.route(request, function(response, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-      }
-      });
-      }
-
-      google.maps.event.addDomListener(window, 'load', initialize);
-
-    </script>
-  </head>
+ 
 
 <script>
 var get_directions = function(saddress, eaddress){
@@ -136,6 +24,7 @@ var get_directions = function(saddress, eaddress){
 
 </style>
 
+</head>
 
 <body>
 
