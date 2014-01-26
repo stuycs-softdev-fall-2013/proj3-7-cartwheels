@@ -1,10 +1,11 @@
 # Models and Collections for users
 from website.models.base import Collection, Model
 from website.models.review import Review
+from website.models.cart import Cart
 
 
 reviews = Review()
-
+carts = Cart()
 
 ''' Format for an insert would be:
     users.insert(username=...,password=...,is_owner=...)
@@ -41,6 +42,15 @@ class UserModel(Model):
     # Get blog reviews made by this user, and with other arguments
     def get_reviews(self, **kwargs):
         return reviews.find(user=self.username, **kwargs)
+
+    # Get carts owned by the user if the user is registered as a cart owner
+    def get_carts(self, **kwargs):
+        if self.is_user:
+            return [carts.find_one(permit_number=license) for license in
+                self.licenses if carts.find_one(permit_number=license)
+                is not None]
+
+        return None
 
 
 class User(Collection):
