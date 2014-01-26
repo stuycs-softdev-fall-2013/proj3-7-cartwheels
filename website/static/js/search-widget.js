@@ -29,6 +29,17 @@ $(function () {
         var $searchResults = $('<ul></ul>');
 
         $.each(data.results, function (index, datum) {
+            //sanitize data
+            if (datum.name == '') {
+                datum.name = 'Name Unknown';
+            }
+            if (datum.zip_code == '') {
+                datum.zip_code = 'Zip Code Unknown';
+            }
+            if (datum.rating == null) {
+                datum.rating = 'Rating Not Available';
+            }
+
             var $item = $('<li></li>');
             $item.addClass('centered-relative search-item');
 
@@ -51,7 +62,7 @@ $(function () {
             var $contentDiv = $('<div></div>'),
                 $rating = $('<div></div>'),
                 $name = $('<div></div>'),
-                $address = $('<div></div>'),
+                $zip = $('<div></div>'),
                 $link = $('<a>View Page</a>'),
                 $tagsDiv = $('<div></div>');
 
@@ -63,15 +74,15 @@ $(function () {
             $name.addClass('name');
             $name.text(toTitleCase(datum.name));
 
-            $address.addClass('address');
-            $address.text(toTitleCase(datum.address));
+            $zip.addClass('zip');
+            $zip.text(datum.zip_code);
 
             $link.addClass('link');
             $link.attr('href', datum.url_path);
 
             $contentDiv.append($rating)
                 .append($name)
-                .append($address)
+                .append($zip)
                 .append($link);
 
             $item.append($contentDiv);

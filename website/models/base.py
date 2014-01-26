@@ -75,3 +75,7 @@ class Collection(object):
     # Remove objects based on keyword parameters
     def remove(self, **kwargs):
         self.objects.remove(kwargs)
+
+    # Find within
+    def within(self, box):
+        return self.to_objects(self.objects.find({'loc': {'$within': {'$box': box}}}))
