@@ -10,12 +10,12 @@
 
 .col-lg-2{
 	float: left;
-	width: 140px;
+	width: 275px;
 }
 
 
 .col-lg-6{
-	margin-left: 190px;
+	margin-left: 300px;
 }
  a,
  a:link,
@@ -42,10 +42,13 @@
 	text-size:20%;
 }
 
-.user-toolbar{
+.user-profile{
 	color:white;
 	background-color:#0000FF;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	padding: 3px;
+	padding: 8px;
+	
+
+
 }
