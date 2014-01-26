@@ -32,12 +32,12 @@ var get_directions = function(saddress, eaddress){
 	<h3>blah blah</h3>
 	<p>sjdofijsdofij</p>
 	<a>get directions</a>
-</div>
+
 	
 <span class="directions">
     <div id="panel">
       <b>Mode of Travel: </b>
-      <select id="mode" onchange="calcRoute();">
+      <select id="mode-1" onchange="calcRoute();">
 	<option value="DRIVING">Driving</option>
 	<option value="WALKING">Walking</option>
 	<option value="BICYCLING">Bicycling</option>
@@ -47,13 +47,16 @@ var get_directions = function(saddress, eaddress){
 <br>
 <br>
 
-    <div id="directions-panel"></div>
-    <div id="map-canvas"></div>
+    <div id="directions-panel-1"></div>
+    <div id="map-canvas-1"></div>
 
 </span>
 
+</div>
+
    <script>
-      document.getElementById('mode').value = "WALKING";
+      document.getElementById('mode-1').value = "WALKING";
+	create_map("345 Chambers street, new york, ny","18 fuller place new york, ny","map-canvas-1", "directions-panel-1", "mode-1");
 	//calcRoute();	
    </script>	 
   </body>
