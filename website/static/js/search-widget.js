@@ -126,7 +126,7 @@ $(function () {
             loc = $inputBox.find('#loc').val();
 
         //AJAX request and create html
-        $.getJSON('/_data', {'item_type': 'cart', 'keywords': kwds, 'location': loc, 'offset': offset * 20}, createSearchResults);
+        $.getJSON('/_search', {'item_type': 'cart', 'keywords': kwds, 'location': loc, 'offset': offset * 20}, createSearchResults);
     };
 
     var onInputKeypress = function (e) {

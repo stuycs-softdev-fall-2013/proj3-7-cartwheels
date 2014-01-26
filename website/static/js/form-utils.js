@@ -1,10 +1,12 @@
-$(function () {
+function bindForm() {
     "use strict";
+
     var $submit = $('input[type="submit"]');
 
     //Verify form before submitting
     var formSubmit = function (e) {
         e.preventDefault();
+        console.log('here');
 
         var $this = $(this.parentNode),
             $requiredFields = $this.find('.required'),
@@ -26,4 +28,10 @@ $(function () {
     };
 
     $submit.on('click', formSubmit);
+
+}
+$(function () {
+    "use strict";
+
+    bindForm();
 });
