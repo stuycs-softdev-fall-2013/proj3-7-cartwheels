@@ -91,7 +91,7 @@
 
 
 {% block main_content %}
-<h2>Manage Carts</h2>
+<h2>Welcome {{ user.first_name }}, Manage Your Carts</h2>
 <div id=cart-manager class=centered-relative>
   {% if user.get_carts() != [] %}
   {% for cart in user.get_carts() %}
@@ -113,6 +113,15 @@
 
         {% else %}
         {{cart.name}}
+        {% endif %}
+      </div>
+      <b>Zip Code</b>
+      <div class=name>
+        {% if cart.zip_code == '' %}
+        Unknown
+
+        {% else %}
+        {{cart.zip_code}}
         {% endif %}
       </div>
       <b>Permit Number</b>
