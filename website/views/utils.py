@@ -31,7 +31,7 @@ def serialize(obj):
 
 
 # Check if a cart is in a certain bounds
-def get_bounds(address, offset, number):
+def get_bounds(address, offset, number, search_object):
     data = urllib2.urlopen('http://maps.googleapis.com/maps/api/geocode/json?api_key%s&sensor=false&address=%s' % (api_key, urllib.quote(address)))
     data = json.loads(data.read())
     geometry = data['results'][0]['geometry']
@@ -50,7 +50,7 @@ def get_bounds(address, offset, number):
             loc = geometry['location']
             box = [ [loc['lat'] - DIST_OFFSET, loc['lng'] - DIST_OFFSET], [loc['lat'] + DIST_OFFSET, loc['lng'] + DIST_OFFSET] ]
 
-        results += carts.within(box, offset, number);
+        results += carts.within(box, offset, number, **search_object);
 
     except ValueError:
         pass
@@ -76,11 +76,13 @@ def search(item_type, offset, number, keywords, location):
                 search_object = {tfield: kwd}
 
                 if len(objs) == 0:
-                    objs += carts.find(offset, number, **search_object)
+                    if location != '':
+                        objs += get_bounds(location, offset, number, search_object)
+                    else:
+                        objs += carts.find(offset, number, **search_object)
 
-
-        if location != '':
-            objs += get_bounds(location, offset, number)
+        if len(objs) == 0 and keywords[0] == '' and len(keywords) == 1:
+            objs += get_bounds(location, offset, number, {})
 
     elif item_type == 'review':
 
@@ -99,8 +101,8 @@ def serve_data():
     item_type = request.args.get('item_type', None)
     keywords = urllib.unquote(request.args.get('keywords')).split(' ')
     location = request.args.get('location', '')
-    offset = request.args.get('offset', None)
-    number = request.args.get('number', None)
+    offset = int(request.args.get('offset', 0))
+    number = int(request.args.get('number', 20))
 
     objs = search(item_type, offset, number, keywords, location)
 

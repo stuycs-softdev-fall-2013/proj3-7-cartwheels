@@ -197,8 +197,8 @@
       <!--search input to find carts-->
       <div id=input-container class=centered-absolute>
         <div id=search-input>
-          <input id=kwds class="input main-search" type=text placeholder="Find a food cart by name, food type, or tags">
-          <input id=loc class="input main-search" type=text placeholder="Around...">
+          <input id=kwds class="input main-search" type=text value="{{ keywords }}" placeholder="Find a food cart by name, food type, or tags">
+          <input id=loc class="input main-search" type=text value="{{ location }}"placeholder="Around...">
         </div>
       </div>
 
@@ -214,7 +214,6 @@
   </body>
 
   <script type="text/javascript" src="{{ url_for('static', filename='js/page-utils.js') }}"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/search-widget.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/header.js') }}"></script>
   {% block scripts %}
   {% endblock %}
