@@ -3,21 +3,26 @@ $(function () {
 
     var $mainContent = $('.main-content'),
         $manager = $('#cart-manager'),
-        $link = $('.link');
-    
+        $link = $('.cart-link'),
+        $addLink = $('.add-link');
+
     var originalMargin;
 
+    //Initialization
     imagesLoaded($manager, function () {
         resizeImages($manager.get(0), 100);
     });
 
+    $manager.find('#manager-container').width($('.manage-item').length * 350);
+
     var destroyForm = function (e) {
         $manager.removeClass('hidden');
+        $addLink.fadeIn(0);
         $manager.animate({
             'marginRight': originalMargin + 'px'
         }, 1000);
 
-        $mainContent.find('.form').remove();
+        $mainContent.find('#info-form').remove();
         $mainContent.find('.links').remove();
     };
 
@@ -31,6 +36,7 @@ $(function () {
             $formErrors = $('<div></div>');
 
         $formDiv.addClass('form hidden');
+        $formDiv.attr('id', 'info-form');
         $formHeader.addClass('form-header');
         $formHeader.text('Manage Cart ' + datum.permit_number);
         $form.attr('method', 'POST');
@@ -96,6 +102,7 @@ $(function () {
             'marginRight': $(document).width()
         }, 1000, function () {
             $manager.addClass('hidden');
+            $addLink.fadeOut(0);
 
             //Populate main-content with form
             $.getJSON('/_serve', {'item_type': 'cart', 'permit_number': $manageItem.find('.license').text().trim()}, createForm);
@@ -103,4 +110,8 @@ $(function () {
     };
 
     $link.click(displayForm);
+
+    $addLink.click(function () {
+        $mainContent.find('#add-form').fadeToggle();
+    });
 });

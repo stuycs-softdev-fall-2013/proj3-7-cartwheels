@@ -49,11 +49,11 @@
     display: inline-block;
     line-height: 27px;
     height: 27px;
-    width: 250px;
+    width: 225px;
     overflow: hidden;
   }
 
-  .content-meta .link {
+  .content-meta .cart-link {
     position: absolute;
     bottom: 10px;
     right: 5px;
@@ -79,12 +79,30 @@
     font-size: 25px;
   }
 
+  .add-link {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 20px;
+    color: #6B6BB2;
+    font-size: 25px;
+  }
+
   #cart-manager {
     margin-top: 50px;
     width: 95%;
     height: 250px;
     border: 2px solid #444;
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  #manager-container {
+    width: 2000px;
+  }
+
+  #add-form {
+    margin-left: 30%;
   }
 </style>
 {% endblock %}
@@ -93,73 +111,81 @@
 {% block main_content %}
 <h2>Welcome {{ user.first_name }}, Manage Your Carts</h2>
 <div id=cart-manager class=centered-relative>
-  {% if user.get_carts() != [] %}
-  {% for cart in user.get_carts() %}
-  <div class=manage-item>
-    <div class="image-meta">
-      {% if cart.image_paths != [] %}
-      <img src="{{cart.image_paths[0]}}">
+  <div id=manager-container>
+    {% if user.get_carts() != [] %}
+    {% for cart in user.get_carts() %}
+    <div class=manage-item>
+      <div class="image-meta">
+        {% if cart.image_paths != [] %}
+        <img src="{{cart.image_paths[0]}}">
 
-      {% else %}
-      <img src="{{ url_for('serve_default') }}">
-      {% endif %}
+        {% else %}
+        <img src="{{ url_for('serve_default') }}">
+        {% endif %}
+      </div>
+
+      <div class="content-meta">
+        <b>Name</b>
+        <div class=name>
+          {% if cart.name == '' %}
+          Unknown
+
+          {% else %}
+          {{cart.name}}
+          {% endif %}
+        </div>
+        <b>Zip Code</b>
+        <div class=name>
+          {% if cart.zip_code == '' %}
+          Unknown
+
+          {% else %}
+          {{cart.zip_code}}
+          {% endif %}
+        </div>
+        <b>Permit Number</b>
+        <div class=license>
+          {% if cart.permit_number == '' %}
+          Unknown
+
+          {% else %}
+          {{cart.permit_number}}
+          {% endif %}
+        </div>
+        <b>Issuance Date</b>
+        <div class=issuance>
+          {% if cart.issuance == '' %}
+          Unknown
+
+          {% else %}
+          {{cart.issuance}}
+          {% endif %}
+        </div>
+        <b>Expiration Date</b>
+        <div class=expiration>
+          {% if cart.expiration == '' %}
+          Unknown
+
+          {% else %}
+          {{cart.expiration}}
+          {% endif %}
+        </div>
+        <a class=cart-link href=#>Manage Information</a>
+      </div>
     </div>
+    {% endfor %}
 
-    <div class="content-meta">
-      <b>Name</b>
-      <div class=name>
-        {% if cart.name == '' %}
-        Unknown
-
-        {% else %}
-        {{cart.name}}
-        {% endif %}
-      </div>
-      <b>Zip Code</b>
-      <div class=name>
-        {% if cart.zip_code == '' %}
-        Unknown
-
-        {% else %}
-        {{cart.zip_code}}
-        {% endif %}
-      </div>
-      <b>Permit Number</b>
-      <div class=license>
-        {% if cart.permit_number == '' %}
-        Unknown
-
-        {% else %}
-        {{cart.permit_number}}
-        {% endif %}
-      </div>
-      <b>Issuance Date</b>
-      <div class=issuance>
-        {% if cart.issuance == '' %}
-        Unknown
-
-        {% else %}
-        {{cart.issuance}}
-        {% endif %}
-      </div>
-      <b>Expiration Date</b>
-      <div class=expiration>
-        {% if cart.expiration == '' %}
-        Unknown
-
-        {% else %}
-        {{cart.expiration}}
-        {% endif %}
-      </div>
-      <a class=link href=#>Manage Information</a>
-    </div>
+    {% else %}
+    No carts to display
+    {% endif %}
   </div>
-  {% endfor %}
-
-  {% else %}
-  No carts to display
-  {% endif %}
 </div>
+
+<a class="add-link" href=#>Add Carts</a>
+<form id=add-form class=hidden method=POST>
+  <input class="input form-input" name="license" type=text placeholder="Cart license">
+  <input type=submit name=button value=add>
+</form>
 
 <div id=reviews>
 </div>

@@ -14,10 +14,17 @@ def profile():
     if user.is_owner:
         if request.method == 'POST':
             form = request.form
-            cart = carts.find_one(permit_number=form['license'])
-            cart.name = form['name']
-            cart.zip_code = form['zip']
-            cart.save()
+
+            if not form.has_key('name'):
+                if carts.find_one(permit_number=form['license']) is not None:
+                    user.licenses += [form['license']]
+                    user.save()
+
+            else:
+                cart = carts.find_one(permit_number=form['license'])
+                cart.name = form['name']
+                cart.zip_code = form['zip']
+                cart.save()
 
         return render_template('owner_profile.html', **context)
 
