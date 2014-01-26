@@ -51,13 +51,7 @@ class Collection(object):
         return None
 
     # Returns a model list corresponding to find in database
-    def find(self, offset=None, number=None, **kwargs):
-        if offset is None and number is None:
-            return self.to_objects(self.objects.find(kwargs).limit(20))
-
-        elif offset is None:
-            return self.to_objects(self.objects.find(kwargs).limit(number))
-
+    def find(self, offset=0, number=20, **kwargs):
         return self.to_objects(self.objects.find(kwargs).skip(offset).limit(number))
 
 
@@ -84,11 +78,8 @@ class Collection(object):
         self.objects.remove(kwargs)
 
     # Find within
-    def within(self, box, offset=None, number=None):
-        if offset is None and number is None:
-            return self.to_objects(self.objects.find({'loc': {'$within': {'$box': box}}}).limit(20))
+    def within(self, box, offset=0, number=20, **kwargs):
+        box = {'loc': {'$within': {'$box': box}}}
+        kwargs = dict(box.items() + kwargs.items())
+        return self.to_objects(self.objects.find(kwargs).skip(offset).limit(number))
 
-        elif offset is None:
-            return self.to_objects(self.objects.find({'loc': {'$within': {'$box': box}}}).limit(number))
-
-        return self.to_objects(self.objects.find({'loc': {'$within': {'$box': box}}}).skip(offset).limit(number))
