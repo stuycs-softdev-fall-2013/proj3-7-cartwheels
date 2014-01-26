@@ -1,11 +1,14 @@
-    
+
+
+
+var create_map = function(sAddress, eAddress, map_id, directions_id, mode_id){
       var directionsDisplay;
       var directionsService = new google.maps.DirectionsService();
       var map;
       var geocoder;
 
-      var sAddress = "{{saddress}}";
-      var eAddress = "{{eaddress}}";
+      //var sAddress = "{{saddress}}";
+      //var eAddress = "{{eaddress}}";
 
       var slat, slng, elat, elng;
       var start, end;
@@ -22,9 +25,9 @@
       zoom: 18,
       center: new google.maps.LatLng(40.717975, -74.014037)
       }
-      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      map = new google.maps.Map(document.getElementById(map_id), mapOptions);
       directionsDisplay.setMap(map);
-      directionsDisplay.setPanel(document.getElementById('directions-panel'));
+      directionsDisplay.setPanel(document.getElementById(directions_id));
       codeAddress();
       
       }
@@ -54,7 +57,7 @@
       }
 
       function calcRoute() {
-      var selectedMode = document.getElementById('mode').value;
+      var selectedMode = document.getElementById(mode_id).value;
       var request = {
       origin: start,
       destination: end,
@@ -70,4 +73,4 @@
       google.maps.event.addDomListener(window, 'load', initialize);
 
 
-
+}
