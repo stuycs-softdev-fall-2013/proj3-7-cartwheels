@@ -7,16 +7,11 @@ $(function () {
 
         var $this = $(this.parentNode),
             $requiredFields = $this.find('.required'),
-            $errors = $this.parent().find('.form-errors'),
+            $errors = $('.form-errors'),
             okaySubmit = true;
 
         $.each($requiredFields, function (index, datum) {
             if ($(datum).val() == '') {
-                console.log('hello');
-                if ($errors.hasClass('hidden')) {
-                    $errors.removeClass('hidden');
-                }
-
                 $errors.text('Some required fields were left blank');
                 okaySubmit = false;
                 return 0;

@@ -30,9 +30,6 @@
     <input class="input form-input required" name="pass" type=password placeholder="Password">
     <input type=submit value=register>
   </form>
-
-  <div class="form-errors hidden">
-  </div>
   <a class="toggle-desc" href=#>more information</a>
   <div class="description hidden">
   Fill out the above form with your name, email, and password in order to access reviews of mobile street vendors in NYC and to write your own reviews.
@@ -49,9 +46,6 @@
     <input class="input form-input required" name="pass" type=password placeholder="Password">
     <input type=submit value=register>
   </form>
-
-  <div class="form-errors hidden">
-  </div>
   <a class="toggle-desc" href=#>more information</a>
   <div class="description hidden">
     If you are a cart owner, you can sign up to manage your cart(s) on this website. 
@@ -59,6 +53,10 @@
     <br>
     After verifying your information, we will upgrade your account, allowing you to add menus to your carts, edit information, modify the photos of your cart, and buy advertisements.
   </div>
+</div>
+
+<div class="form-errors">
+  {{error}}
 </div>
 
 {% endblock %}

@@ -40,8 +40,11 @@ def login():
 
         if user is not None:
             session['username'] = user.username
+            return redirect(url_for('index'))
 
-        return redirect(url_for('index'))
+        else:
+            context['error'] = 'Email / password combination is incorrect'
+
 
     return render_template('login.html', **context)
 
@@ -64,8 +67,11 @@ def register():
             if users.find_one(username=email) is None:
                 user = users.insert(first_name=first, last_name=last, username=email, password=password)
                 session['username'] = user.username
+                return redirect(url_for('index'))
 
-            return redirect(url_for('index'))
+            else:
+                context['error'] = 'Email already registered in the system'
+
 
         else:
             first = form['first']
