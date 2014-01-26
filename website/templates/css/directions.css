@@ -1,50 +1,41 @@
-
- 
-      html, body, #map-canvas {
-	margin-right:auto;
-	margin-left:auto;
+ html, body, #map-canvas-1 {
       height: 100%;
       margin: 0px;
-      padding: 0px;
+      padding: 0px
       }
-
-
       #panel {
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      margin-left: -180px;
       z-index: 5;
       background-color: #fff;
       padding: 5px;
       border: 1px solid #999;
       }
+ 
 
 
-
-      #directions-panel {
+      #directions-panel-1 {
       height: 100%;
       float: right;
       width: 390px;
       overflow: auto;
       }
 
-      #map-canvas {
-
-	height: 300px;
-	width: 300px;
+      #map-canvas-1 {
+      margin-right: 400px;
       }
 
       @media print {
-      #map-canvas {
+      #map-canvas-1 {
       height: 500px;
       margin: 0;
       }
 
-      #directions-panel {
+      #directions-panel-1 {
       float: none;
       width: auto;
+	background-color: blue;
       }
       }
-
-
-
-
-
-
