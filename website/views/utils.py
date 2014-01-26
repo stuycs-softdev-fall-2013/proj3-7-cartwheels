@@ -104,8 +104,8 @@ def search(item_type, offset, number, keywords, location):
     return objs
 
 
-# Serves the data from the backend to the frontend js using json module
-def serve_data():
+# Searches data
+def search_data():
     item_type = request.args.get('item_type', None)
     keywords = urllib.unquote(request.args.get('keywords')).split(' ')
     location = request.args.get('location', '')
@@ -113,6 +113,37 @@ def serve_data():
     number = int(request.args.get('number', 20))
 
     objs = search(item_type, offset, number, keywords, location)
+    results = [o._obj for o in objs]
+
+    # Remove incompatible types
+    for r in results:
+        serialize(r)
+
+    # Return results as an array
+    data = {'results': results}
+    return json.dumps(data)
+
+
+# Serves data
+def serve_data():
+    item_type = request.args.get('item_type', None)
+    rargs = request.args.copy()
+    kwargs = {}
+
+    # Copy request args into a copy
+    for k in rargs.keys():
+        if k != 'item_type':
+            kwargs[k] = rargs[k]
+
+        if '_id' in k:
+            kwargs[k] = ObjectId(rargs[k])
+
+    if item_type == 'cart':
+        objs = carts.find(**kwargs)
+
+    else:
+        objs = reviews.find(**kwargs)
+
     results = [o._obj for o in objs]
 
     # Remove incompatible types

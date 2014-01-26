@@ -1,5 +1,5 @@
 from flask import render_template, session, request, redirect, url_for
-from website import users
+from website import users, carts
 from website.views.utils import base_context
 
 
@@ -12,6 +12,13 @@ def profile():
     user = context['user']
 
     if user.is_owner:
+        if request.method == 'POST':
+            form = request.form
+            cart = carts.find_one(permit_number=form['license'])
+            cart.name = form['name']
+            cart.zip_code = form['zip']
+            cart.save()
+
         return render_template('owner_profile.html', **context)
 
     context['target_user'] = user
