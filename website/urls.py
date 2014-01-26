@@ -2,6 +2,7 @@ from website import app, views
 
 # Home
 app.add_url_rule('/', view_func=views.index)
+app.add_url_rule('/search', view_func=views.search_results)
 
 # Carts
 app.add_url_rule('/carts/<cid>', view_func=views.cart_page, methods=['GET', 'POST'])

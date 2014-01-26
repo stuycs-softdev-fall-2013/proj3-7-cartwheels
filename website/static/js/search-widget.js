@@ -1,17 +1,15 @@
-function toTitleCase(str) {
-    "use strict";
-    return str.replace(/\w\S*/g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
-}
-
 $(function () {
     "use strict";
 
     var $inputBox = $('#search-input'),
         $inputText = $inputBox.find('input'),
-        $mainContent = $('.main-content');
+        $mainContent = $('.main-content'),
+        $prevPage = $('.prev-page'),
+        $nextPage = $('.next-page');
 
     //Constants
-    var targetImgHeight = 75;
+    var targetImgHeight = 75,
+        searchOffset = 0;
 
     //Add border on last search result
     var borderLast = function () {
@@ -25,7 +23,6 @@ $(function () {
 
     //Create the search results
     var createSearchResults = function (data) {
-
         var $searchResults = $('<ul></ul>');
 
         $.each(data.results, function (index, datum) {
@@ -98,31 +95,58 @@ $(function () {
             //append item
             $searchResults.append($item);
         });
+        $mainContent.prepend($searchResults);
 
-        $mainContent.append($searchResults);
+        if (searchOffset > 0) {
+            $prevPage.removeClass('hidden');
+        }
+        if (data.results.length >= 20) {
+            $nextPage.removeClass('hidden');
+        }
+
         resizeImages($mainContent.get(0), targetImgHeight);
         borderLast();
     };
 
     //When the search term is submitted
-    var onInputSubmit = function (e) {
+    var onInputSubmit = function (offset) {
+        //Clear the main content
+        $mainContent.find('ul').empty();
+        $mainContent.addClass('middle-bar');
+
+        $prevPage.addClass('hidden');
+        $nextPage.addClass('hidden');
+        
+        $(window).scrollTop(0);
+
+        //Grab the values from the fields
+        var kwds = $inputBox.find('#kwds').val(),
+            loc = $inputBox.find('#loc').val();
+
+        //AJAX request and create html
+        $.getJSON('/_data', {'item_type': 'cart', 'keywords': kwds, 'location': loc, 'offset': offset * 20}, createSearchResults);
+    };
+
+    var onInputKeypress = function (e) {
         if (e.keyCode === 13) {
-            //Clear the main content
-            //Change later to redirect page
-            $mainContent.empty();
-            $mainContent.addClass('middle-bar');
-            
-            $(window).scrollTop(0);
-
-            //Grab the values from the fields
-            var kwds = $inputBox.find('#kwds').val(),
-                loc = $inputBox.find('#loc').val();
-
-            //AJAX request and create html
-            $.getJSON('/_data', {'item_type': 'cart', 'keywords': kwds, 'location': loc}, createSearchResults);
+            searchOffset = 0;
+            onInputSubmit(searchOffset);
         }
     };
 
+    //other initialization
+    onInputSubmit(0);
+
     //event bindings
-    $inputText.on('keypress', onInputSubmit);
+    $inputText.on('keypress', onInputKeypress);
+
+    $prevPage.click(function (e) {
+        searchOffset -= 1;
+        onInputSubmit(searchOffset);
+    });
+
+    $nextPage.click(function (e) {
+        searchOffset += 1;
+        onInputSubmit(searchOffset);
+    });
 });
