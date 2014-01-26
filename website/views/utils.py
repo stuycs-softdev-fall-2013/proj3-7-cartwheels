@@ -20,37 +20,45 @@ def serialize(obj):
     for k in obj:
         try:
             json.dumps(obj[k])
+
         except TypeError:
             if type(obj[k]) == dict:
                 serialize(obj[k])
+
             elif type(obj[k]) == list:
                 for i in obj[k]:
                     serialize(i)
+
             else:
                 obj[k] = str(obj[k])
 
 
-# Check if a cart is in a certain bounds
-def get_bounds(address, offset, number, search_object):
-    # Geocode an address using a google maps api endpoint
-    data = urllib2.urlopen('http://maps.googleapis.com/maps/api/geocode/json?api_key%s&sensor=false&address=%s' % (api_key, urllib.quote(address)))
+# Get carts near a certain location
+def get_carts_near(address, offset, number, search_object={}):
+    # Geocode an address using a google maps api
+    data = urllib2.urlopen('''http://maps.googleapis.com/maps/api/geocode/json?
+            api_key%s&sensor=false&address=%s''' % (api_key,
+                                                    urllib.quote(address)))
     data = json.loads(data.read())
     geometry = data['results'][0]['geometry']
     results = []
-    
-    # Find all results within a box location
+
+    # Find all results within certain bounds
     try:
         box = []
+
         if geometry.has_key('bounds'):
             ne = geometry['bounds']['northeast']
             sw = geometry['bounds']['southwest']
 
-            if ne['lat'] - sw['lat'] > DIST_OFFSET and ne['lng'] - sw['lng'] > DIST_OFFSET:
+            if ne['lat'] - sw['lat'] > DIST_OFFSET \
+                    and ne['lng'] - sw['lng'] > DIST_OFFSET:
                 box = [ [sw['lat'], sw['lng']], [ne['lat'], ne['lng']] ]
 
         if box == []:
             loc = geometry['location']
-            box = [ [loc['lat'] - DIST_OFFSET, loc['lng'] - DIST_OFFSET], [loc['lat'] + DIST_OFFSET, loc['lng'] + DIST_OFFSET] ]
+            box = [ [loc['lat'] - DIST_OFFSET, loc['lng'] - DIST_OFFSET],
+                    [loc['lat'] + DIST_OFFSET, loc['lng'] + DIST_OFFSET] ]
 
         results += carts.within(box, offset, number, **search_object);
 
@@ -66,10 +74,8 @@ def search(item_type, offset, number, keywords, location):
 
     # Change objs depending on item type
     if item_type == 'cart':
-
         # Get results for each keyword
         for word in keywords:
-
             if word == '':
                 continue
 
@@ -80,18 +86,18 @@ def search(item_type, offset, number, keywords, location):
 
                 if len(objs) == 0:
                     if location != '':
-                        objs += get_bounds(location, offset, number, search_object)
+                        objs += get_carts_near(location, offset, number,
+                                search_object)
+
                     else:
                         objs += carts.find(offset, number, **search_object)
 
         # If there are no keywords, use location instead
         if len(objs) == 0 and keywords[0] == '' and len(keywords) == 1:
-            objs += get_bounds(location, offset, number, {})
+            objs += get_carts_near(location, offset, number)
 
     elif item_type == 'review':
-
         for word in keywords:
-
             for tfield in reviews.text_fields():
                 kwd = re.compile(r'(?: |^)' + word + '(?: |$)', re.IGNORECASE)
                 search_object = {tfield: kwd}
@@ -109,7 +115,6 @@ def serve_data():
     number = int(request.args.get('number', 20))
 
     objs = search(item_type, offset, number, keywords, location)
-
     results = [o._obj for o in objs]
 
     # Remove incompatible types

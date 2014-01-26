@@ -86,10 +86,9 @@
 
 
 {% block main_content %}
-
 <div id=gallery-cart>
-{% if cart.image_paths|length > 0 %}
 
+{% if cart.image_paths|length > 0 %}
 {% for path in cart.image_paths %}
 <div class="profile-image">
   <img src={{path}}>
@@ -110,53 +109,77 @@
   <div class="name info">
     {% if cart.name != '' %}
       {{cart.name}}
+
     {% else %}
       Unknown
     {% endif %}
   </div>
+
   <div class="meta">
     Owner
   </div>
   <div class="owner info">
     {% if cart.owner != '' %}
       {{cart.owner}}
+
     {% else %}
       Unknown
     {% endif %}
   </div>
+
   <div class="meta">
     Zip Code
   </div>
   <div class="zip info">
     {% if cart.zip_code != '' %}
       {{cart.zip_code}}
+
     {% else %}
       Unknown
     {% endif %}
   </div>
+
   <div class="meta">
     Rating
   </div>
   <div class="rating info">
     {{cart.rating}}
   </div>
+
   <div class="meta">
     Registration Number
   </div>
-  <div class="registration-number info">
-    {{cart.permit_number}}
+  <div class="permit-number info">
+    {% if cart.permit_number != '' %}
+      {{cart.permit_number}}
+
+    {% else %}
+      Unknown
+    {% endif %}
   </div>
+
   <div class="meta">
     Permit Issued
   </div>
   <div class="permit-issuance info">
-    {{cart.issuance}}
+    {% if cart.issuance != '' %}
+      {{cart.issuance}}
+
+    {% else %}
+      Unknown
+    {% endif %}
   </div>
+
   <div class="meta">
     Permit Expires
   </div>
   <div class="permit-expiration info">
-    {{cart.expiration}}
+    {% if cart.expiration != '' %}
+      {{cart.expiration}}
+
+    {% else %}
+      Unknown
+    {% endif %}
   </div>
 </div>
 
@@ -176,6 +199,8 @@
 </div>
 
 {% endblock %}
+
+
 {% block scripts %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/cart-widget.js') }}"></script>
 {% endblock %}

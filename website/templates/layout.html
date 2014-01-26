@@ -172,6 +172,7 @@
   <body>
     {% block body %}
     {% endblock %}
+
     <div class="left-sidebar">
     {% block left_sidebar %}
     {% endblock %}
@@ -185,7 +186,6 @@
     <div class="right-sidebar">
     {% block right_sidebar %}
     {% endblock %}
-    </div>
     </div>
 
     <div id=header>
@@ -206,6 +206,7 @@
         {% if user == None %}
         <a href="{{url_for('register')}}">Register</a>
         <a href="{{url_for('login')}}">Login</a>
+
         {% else %}
         <a href="{{url_for('logout')}}">Logout</a>
         {% endif %}

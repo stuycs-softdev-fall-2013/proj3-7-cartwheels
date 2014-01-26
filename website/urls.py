@@ -1,6 +1,6 @@
 from website import app, views
 
-# Home
+# Home and search
 app.add_url_rule('/', view_func=views.index)
 app.add_url_rule('/search', view_func=views.search_results)
 
@@ -11,7 +11,7 @@ app.add_url_rule('/carts/<cid>/review', view_func=views.review, methods=['GET', 
 
 # Users
 app.add_url_rule('/profile', view_func=views.profile, methods=['GET', 'POST'])
-app.add_url_rule('/users/<username>', view_func=views.user_page, methods=['GET', 'POST'])
+app.add_url_rule('/users/<uid>', view_func=views.user_profile, methods=['GET', 'POST'])
 app.add_url_rule('/logout', view_func=views.logout)
 app.add_url_rule('/login', view_func=views.login, methods=['GET', 'POST'])
 app.add_url_rule('/register', view_func=views.register, methods=['GET', 'POST'])

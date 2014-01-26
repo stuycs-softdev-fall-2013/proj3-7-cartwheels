@@ -17,7 +17,8 @@ $(function () {
             lastItem = $(searchItems[searchItems.length - 1]);
 
         lastItem.css({
-            'border-bottom': '1px solid #eee'
+            'border-bottom': '1px solid #eee',
+            'margin-bottom': '20px'
         });
     };
 
