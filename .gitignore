@@ -38,3 +38,4 @@ nosetests.xml
 # Other
 *.info
 website/static/images
+*.swp

@@ -1,6 +1,7 @@
 # Application
 SECRET_KEY = "}. 2}MpuI3J[yYGg8*b9jL&;%Lyt(WhxxhlFaoadm}sQjaVF+/z`vs~#qd@ Spd8"
 STORE_FILE = "website/settings/store.info"
+DIST_OFFSET = 0.01
 
 # Mongodb
 DB_NAME = 'cartwheels'

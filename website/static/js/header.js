@@ -4,7 +4,7 @@ $(function () {
     //elements
     var $header = $('#header');
 
-    //keep header on the top of the page
+    //Keep header on the top of the page
     var positionHeader = function () {
         var $window = $(window);
         var $headerTop = $window.scrollTop();

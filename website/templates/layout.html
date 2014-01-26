@@ -2,6 +2,7 @@
   <head>
     <!--include javascript files-->
     <script type="text/javascript" src="{{ url_for('static', filename='include/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='include/imagesloaded.pkgd.min.js') }}"></script>
 
     <!--stylesheets-->
     <style>
@@ -27,6 +28,12 @@
         margin-top: 75px;
       }
 
+      .middle-bar {
+        width: 65%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
       .left-sidebar {
         float: left;
         width: 20%;
@@ -38,18 +45,19 @@
       }
 
       /* generic search bar*/
-      .search {
+      .input {
         display: inline;
         -webkit-border-radius: 2px;
         -moz-border-radius: 2px;
         border-radius: 2px;
+        border: 1px solid #aaa;
       }
 
-      .search:focus {
-        border: 1px solid #fafafa;
+      .input:focus {
+        border: 1px solid #aaa;
         -webkit-box-shadow: 0 0 6px #007eff;
         -moz-box-shadow: 0 0 5px #007eff;
-        box-shadow: 0 0 5px #007eff;
+        box-shadow: none;
         outline-color: none;
         transition: outline-color .5s, box-shadow .5s;
       }
@@ -60,6 +68,77 @@
         font-size: 13px;
         padding-left: 5px;
         border: 1px solid #555555;
+      }
+
+      .header-links {
+        position: relative;
+        display: inline;
+        top: 27%;
+      }
+
+      .header-links a {
+        color: white;
+        font-size: 22px;
+        margin-right: 35px;
+        text-decoration: none;
+      }
+
+      .header-links a:hover {
+        color: #eee;
+      }
+
+      .header-links-left {
+        left: 20%;
+      }
+
+      .header-links-right {
+        left: 55%;
+      }
+
+      .form {
+        display: inline-table;
+        width: 40%;
+        margin-right: 75px;
+        margin-top: 50px;
+        margin-left: 5px;
+      }
+
+      .form-header {
+        font-size: 25px;
+        border-bottom: 1px solid #bbb;
+        padding-bottom: 5px;
+      }
+
+      .form-input {
+        display: block;
+        height: 30px;
+        width: 200px;
+        margin-top: 20px;
+        font-size: 15px;
+        padding-left: 5px;
+      }
+
+      input[type="submit"] {
+        padding: 0.3em 0.6em;
+        margin-top: 25px;
+        background-color: #bbb;
+        color: #555;
+        border: 1px solid #aaa !important;
+        border-radius: 0px;
+        text-decoration: none;
+        width: 100px;
+        height: 30px;
+        vertical-align: center;
+        font-size: 15px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #aaa;
+      }
+
+      .form-errors {
+        color: red;
+        margin-top: 30px;
       }
 
       #kwds {
@@ -93,12 +172,13 @@
   <body>
     {% block body %}
     {% endblock %}
+
     <div class="left-sidebar">
     {% block left_sidebar %}
     {% endblock %}
     </div>
 
-    <div class="main-content">
+    <div class="main-content middle-bar">
     {% block main_content %}
     {% endblock %}
     </div>
@@ -107,20 +187,34 @@
     {% block right_sidebar %}
     {% endblock %}
     </div>
-    </div>
 
     <div id=header>
+      <div class="header-links header-links-left">
+        <a href="{{url_for('index')}}">Home</a>
+        <a href="/">About</a>
+      </div>
+
       <!--search input to find carts-->
       <div id=input-container class=centered-absolute>
         <div id=search-input>
-          <input id=kwds class="search main-search" type=text placeholder="Find a food cart by name, food type, tags">
-          <input id=loc class="search main-search" type=text placeholder="Around...">
+          <input id=kwds class="input main-search" type=text value="{{ keywords }}" placeholder="Find a food cart by name, food type, or tags">
+          <input id=loc class="input main-search" type=text value="{{ location }}"placeholder="Around...">
         </div>
+      </div>
+
+      <div class="header-links header-links-right">
+        {% if user == None %}
+        <a href="{{url_for('register')}}">Register</a>
+        <a href="{{url_for('login')}}">Login</a>
+
+        {% else %}
+        <a href="{{url_for('logout')}}">Logout</a>
+        {% endif %}
       </div>
     </div>
   </body>
 
-  <script type="text/javascript" src="{{ url_for('static', filename='js/search-widget.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/page-utils.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/header.js') }}"></script>
   {% block scripts %}
   {% endblock %}

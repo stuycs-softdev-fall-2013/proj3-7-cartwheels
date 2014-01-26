@@ -7,7 +7,9 @@ $(function () {
         $inputText = $inputBox.find('input'),
         $mainContent = $('.main-content');
 
-    //when the images load, create collage
+    $mainContent.removeClass('middle-bar');
+
+    //When the images load, create collage
     var onImageLoad = function () {
         $(window).scrollTop(0);
 
@@ -27,10 +29,10 @@ $(function () {
         $('body').css({'overflow': 'hidden'});
     };
 
-    //initialize $gallery once all images load
+    //Initialize $gallery once all images load
     imagesLoaded($gallery.get(0), onImageLoad);
 
-    //when user focuses on the input box
+    //When user focuses on the input box
     var onInputFocus = function () {
         $flag.fadeOut(300);
         $('body').css({'overflow': 'scroll'});
