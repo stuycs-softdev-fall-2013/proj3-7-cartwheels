@@ -32,11 +32,13 @@ def serialize(obj):
 
 # Check if a cart is in a certain bounds
 def get_bounds(address, offset, number, search_object):
+    # Geocode an address using a google maps api endpoint
     data = urllib2.urlopen('http://maps.googleapis.com/maps/api/geocode/json?api_key%s&sensor=false&address=%s' % (api_key, urllib.quote(address)))
     data = json.loads(data.read())
     geometry = data['results'][0]['geometry']
     results = []
-
+    
+    # Find all results within a box location
     try:
         box = []
         if geometry.has_key('bounds'):
@@ -58,7 +60,6 @@ def get_bounds(address, offset, number, search_object):
     return results
 
 
-
 # Search for items using regex find
 def search(item_type, offset, number, keywords, location):
     objs = []
@@ -66,11 +67,13 @@ def search(item_type, offset, number, keywords, location):
     # Change objs depending on item type
     if item_type == 'cart':
 
+        # Get results for each keyword
         for word in keywords:
 
             if word == '':
                 continue
 
+            # Check each text field
             for tfield in carts.text_fields():
                 kwd = re.compile(r'(?: |^)' + word + '(?: |$)', re.IGNORECASE)
                 search_object = {tfield: kwd}
@@ -81,6 +84,7 @@ def search(item_type, offset, number, keywords, location):
                     else:
                         objs += carts.find(offset, number, **search_object)
 
+        # If there are no keywords, use location instead
         if len(objs) == 0 and keywords[0] == '' and len(keywords) == 1:
             objs += get_bounds(location, offset, number, {})
 

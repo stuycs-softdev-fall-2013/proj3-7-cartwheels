@@ -97,6 +97,7 @@ $(function () {
         });
         $mainContent.prepend($searchResults);
 
+        //Determine when to display 'next page' and 'previous page'
         if (searchOffset > 0) {
             $prevPage.removeClass('hidden');
         }

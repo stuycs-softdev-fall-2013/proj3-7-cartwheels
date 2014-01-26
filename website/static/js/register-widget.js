@@ -3,6 +3,7 @@ $(function () {
 
     var $toggleInfo = $('.toggle-desc');
 
+    //Toggle displaying of extra information
     var toggleDescription = function (e) {
         var $this = $(this),
             $info = $this.parent().find('.description');

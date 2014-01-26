@@ -1,8 +1,10 @@
+// Make a string title case
 function toTitleCase(str) {
     "use strict";
     return str.replace(/\w\S*/g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
 }
 
+//Resize images to a certain height based on their aspect ratios
 function resizeImages(node, targetImgHeight) {
     "use strict";
 
@@ -21,6 +23,7 @@ function resizeImages(node, targetImgHeight) {
     });
 }
 
+//When the page has loaded
 $(function () {
     "use strict";
 
@@ -28,6 +31,7 @@ $(function () {
         $inputBox = $('#search-input'),
         $inputText = $inputBox.find('input');
 
+    //Redirect to the search page if not already on it
     var onInputKeypress = function (e) {
         if (e.keyCode === 13 && document.URL.indexOf('/search') === -1) {
             $mainContent.addClass('hidden');
@@ -35,7 +39,8 @@ $(function () {
             //Grab the values from the fields
             var kwds = $inputBox.find('#kwds').val(),
                 loc = $inputBox.find('#loc').val();
-            
+
+            //Copy the values onto the url
             window.location.href = '/search?kwds=' + kwds + '&loc=' + loc;
         }
     };
