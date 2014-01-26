@@ -42,9 +42,11 @@ def get_bounds(address, offset, number):
         if geometry.has_key('bounds'):
             ne = geometry['bounds']['northeast']
             sw = geometry['bounds']['southwest']
-            box = [ [sw['lat'], sw['lng']], [ne['lat'], ne['lng']] ]
 
-        else:
+            if ne['lat'] - sw['lat'] > DIST_OFFSET and ne['lng'] - sw['lng'] > DIST_OFFSET:
+                box = [ [sw['lat'], sw['lng']], [ne['lat'], ne['lng']] ]
+
+        if box == []:
             loc = geometry['location']
             box = [ [loc['lat'] - DIST_OFFSET, loc['lng'] - DIST_OFFSET], [loc['lat'] + DIST_OFFSET, loc['lng'] + DIST_OFFSET] ]
 
