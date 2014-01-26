@@ -36,8 +36,9 @@ $(function () {
         $form.attr('method', 'POST');
         $formErrors.addClass('form-errors');
 
-        var $nameInput = $('<input type=text>'),
-            $zipInput = $('<input type=text>'),
+        var $nameInput = $('<input type=text name="name">'),
+            $zipInput = $('<input type=text name="zip">'),
+            $hiddenInput = $('<input type=hidden name="license">'),
             $submit = $('<input type=submit>');
         
         $nameInput.addClass('input form-input required');
@@ -48,10 +49,13 @@ $(function () {
         $zipInput.attr('placeholder', 'Zip code of cart');
         $zipInput.val(datum.zip_code);
 
+        $hiddenInput.val(datum.permit_number);
+
         $submit.val('submit');
 
         $form.append($nameInput);
         $form.append($zipInput);
+        $form.append($hiddenInput);
         $form.append($submit);
 
         $formDiv.append($formHeader);
