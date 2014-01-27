@@ -78,8 +78,11 @@ $(function () {
             $link.addClass('link');
             $link.attr('href', datum.url_path);
 
-            $contentDiv.append($rating)
+            $contentDiv.append('<b>Rating</b>')
+                .append($rating)
+                .append('<b>Name</b>')
                 .append($name)
+                .append('<b>Zip Code</b>')
                 .append($zip)
                 .append($link);
 
