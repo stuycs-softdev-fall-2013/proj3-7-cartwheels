@@ -3,6 +3,7 @@ $(function () {
 
     var $mainContent = $('.main-content'),
         $manager = $('#cart-manager'),
+        $reviews = $('.reviews'),
         $link = $('.cart-link'),
         $addLink = $('.add-link');
 
@@ -18,6 +19,7 @@ $(function () {
     var destroyForm = function (e) {
         $manager.removeClass('hidden');
         $addLink.fadeIn(0);
+        $reviews.fadeIn(0);
         $manager.animate({
             'marginRight': originalMargin + 'px'
         }, 1000);
@@ -103,6 +105,7 @@ $(function () {
         }, 1000, function () {
             $manager.addClass('hidden');
             $addLink.fadeOut(0);
+            $reviews.fadeOut(0);
 
             //Populate main-content with form
             $.getJSON('/_serve', {'item_type': 'cart', 'permit_number': $manageItem.find('.license').text().trim()}, createForm);
