@@ -17,6 +17,8 @@ $(function () {
     $manager.find('#manager-container').width($('.manage-item').length * 350);
 
     var destroyForm = function (e) {
+        e.preventDefault();
+
         $manager.removeClass('hidden');
         $addLink.fadeIn(0);
         $reviews.fadeIn(0);
@@ -114,7 +116,9 @@ $(function () {
 
     $link.click(displayForm);
 
-    $addLink.click(function () {
-        $mainContent.find('#add-form').fadeToggle();
+    $addLink.click(function (e) {
+        e.preventDefault();
+
+        $mainContent.find('#add-form').slideToggle();
     });
 });

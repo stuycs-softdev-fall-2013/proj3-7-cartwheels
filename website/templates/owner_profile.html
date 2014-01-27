@@ -55,8 +55,8 @@
 
   .content-meta .cart-link {
     position: absolute;
-    bottom: 10px;
-    right: 5px;
+    bottom: 5px;
+    left: 10px;
     text-decoration: none;
   }
 
@@ -109,7 +109,7 @@
 
 
 {% block before_reviews %}
-<h2>Welcome {{ user.first_name }}, Manage Your Carts</h2>
+<h2>Welcome {{ user.first_name }}, Manage Your Carts Here</h2>
 <div id=cart-manager class=centered-relative>
   <div id=manager-container>
     {% if user.get_carts() != [] %}
@@ -170,7 +170,7 @@
           {{cart.expiration}}
           {% endif %}
         </div>
-        <a class=cart-link href=#>Manage Information</a>
+        <a class=cart-link href=#>Click to Manage Information</a>
       </div>
     </div>
     {% endfor %}
@@ -181,7 +181,7 @@
   </div>
 </div>
 
-<a class="add-link" href=#>Add Carts</a>
+<a class="add-link" href=#>Click to Add Carts</a>
 <form id=add-form class=hidden method=POST>
   <input class="input form-input" name="license" type=text placeholder="Cart license">
   <input type=submit name=button value=add>

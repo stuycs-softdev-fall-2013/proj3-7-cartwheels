@@ -29,13 +29,13 @@ $(function () {
         $.each(data.results, function (index, datum) {
             //sanitize data
             if (datum.name == '') {
-                datum.name = 'Name Unknown';
+                datum.name = 'Unknown';
             }
             if (datum.zip_code == '') {
-                datum.zip_code = 'Zip Code Unknown';
+                datum.zip_code = 'Unknown';
             }
             if (datum.rating == null) {
-                datum.rating = 'Rating Not Available';
+                datum.rating = 'Not Available';
             }
 
             var $item = $('<li></li>');
