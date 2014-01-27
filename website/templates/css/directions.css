@@ -1,8 +1,10 @@
- html, body, #map-canvas-1 {
+ html, body {
       height: 100%;
       margin: 0px;
       padding: 0px
       }
+
+
       #panel {
  /*     position: absolute;
       top: 5px;
@@ -14,29 +16,28 @@
       padding: 5px;
       border: 1px solid #999;
       }
- 
 
+
+
+ #map-canvas-1 {
+      height: 100%; 
+      padding: 0px;
+	width: 300px;
+	float:left;
+      }
 
       #directions-panel-1 {
       height: 100%;
       float: right;
-      width: 390px;
+      
       overflow: auto;
       }
 
-      #map-canvas-1 {
-      margin-right: 400px;
-      }
+.results{
+	margin-left:50px;
+	margin-top:100px;
+	
+}  
 
-      @media print {
-      #map-canvas-1 {
-      height: 500px;
-      margin: 0;
-      }
+    
 
-      #directions-panel-1 {
-      float: none;
-      width: auto;
-	background-color: blue;
-      }
-      }
