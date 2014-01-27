@@ -1,7 +1,8 @@
 
+var calcRoute;
+var initialize;
+var codeAddress;
 
-
-var create_map = function(sAddress, eAddress, map_id, directions_id, mode_id){
       var directionsDisplay;
       var directionsService = new google.maps.DirectionsService();
       var map;
@@ -14,7 +15,10 @@ var create_map = function(sAddress, eAddress, map_id, directions_id, mode_id){
       var start, end;
 
 
-      function initialize() {
+var create_map = function(sAddress, eAddress, map_id, directions_id, mode_id){
+
+
+      initialize = function() {
       geocoder = new google.maps.Geocoder();
 
       directionsDisplay = new google.maps.DirectionsRenderer();
@@ -32,7 +36,7 @@ var create_map = function(sAddress, eAddress, map_id, directions_id, mode_id){
       
       }
 
-      function codeAddress() {
+      codeAddress = function() {
 
       geocoder.geocode( { 'address': sAddress}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
@@ -56,7 +60,7 @@ var create_map = function(sAddress, eAddress, map_id, directions_id, mode_id){
       
       }
 
-      function calcRoute() {
+      calcRoute = function() {
       var selectedMode = document.getElementById(mode_id).value;
       var request = {
       origin: start,
