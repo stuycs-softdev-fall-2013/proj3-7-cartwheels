@@ -13,13 +13,13 @@ def load_images():
         title = fields[len(fields) - 1]
 
         if 'food_cart' in title:
-            photos.insert(image_file=f, is_default=True, title=title)
+            photos.insert(image_file=f, is_cart= False, is_default=True, title=title)
             f.close()
 
         elif '.DS_Store' not in title:
-            photos.insert(image_file=f, is_cart=True, title=title)
+            photos.insert(image_file=f, is_cart=True, is_default=False, title=title)
             f.close()
 
         else:
-            photos.insert(image_file=f, is_cart=False, title=title)
+            photos.insert(image_file=f, is_cart=False, is_default=False, title=title)
             f.close()

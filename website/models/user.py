@@ -46,9 +46,9 @@ class UserModel(Model):
     # Get carts owned by the user if the user is registered as a cart owner
     def get_carts(self, **kwargs):
         if self.is_owner:
-            return [carts.find_one(permit_number=license) for license in
-                self.licenses if carts.find_one(permit_number=license)
-                is not None]
+            return [carts.find_one(permit_number=license, **kwargs) for license
+                in self.licenses if carts.find_one(permit_number=license,
+                    **kwargs) is not None]
 
         return None
 

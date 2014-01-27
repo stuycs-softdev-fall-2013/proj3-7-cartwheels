@@ -62,8 +62,8 @@ class CartModel(Model):
 
 
     # Def add menu
-    def add_menu(self, menu):
-        self.menu += menu
+    def add_menu(self, menu_item):
+        self.menu += [menu_item]
         self.save()
 
 
