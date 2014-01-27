@@ -3,6 +3,7 @@
 {% block head_continued %}
 <style>
   h2 {
+    width: 930px;
     text-align: center;
     border-bottom: 1px solid #aaa;
     padding-bottom: 20px;
@@ -73,24 +74,38 @@
   }
 
   .links a {
-    line-height: 135px;
+    line-height: 75px;
     text-decoration: none;
+    background-color: #eee;
     color: #6B6BB2;
     font-size: 25px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .links a:hover {
+    background-color: #bbb;
   }
 
   .add-link {
     display: block;
+    width: 880px;
     text-align: center;
     text-decoration: none;
-    margin-top: 20px;
+    background-color: #eee;
     color: #6B6BB2;
     font-size: 25px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .add-link:hover {
+    background-color: #bbb;
   }
 
   #cart-manager {
     margin-top: 50px;
-    width: 95%;
+    width: 890px;
     height: 250px;
     border: 2px solid #444;
     overflow-x: auto;
@@ -102,7 +117,11 @@
   }
 
   #add-form {
-    margin-left: 30%;
+    margin-left: 255px;
+  }
+
+  #info-form {
+    margin-left: 120px;
   }
 </style>
 {% endblock %}
@@ -181,7 +200,7 @@
   </div>
 </div>
 
-<a class="add-link" href=#>Click to Add Carts</a>
+<a class="add-link centered-relative" href=#>Click to Add Carts</a>
 <form id=add-form class=hidden method=POST>
   <input class="input form-input" name="license" type=text placeholder="Cart license">
   <input type=submit name=button value=add>

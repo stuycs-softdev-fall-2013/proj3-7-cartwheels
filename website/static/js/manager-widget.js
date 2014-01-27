@@ -5,7 +5,8 @@ $(function () {
         $manager = $('#cart-manager'),
         $reviews = $('.reviews'),
         $link = $('.cart-link'),
-        $addLink = $('.add-link');
+        $addLink = $('.add-link'),
+        $addForm = $('#add-form');
 
     var originalMargin;
 
@@ -19,9 +20,10 @@ $(function () {
     var destroyForm = function (e) {
         e.preventDefault();
 
-        $manager.removeClass('hidden');
+        $manager.fadeIn(0);
         $addLink.fadeIn(0);
         $reviews.fadeIn(0);
+
         $manager.animate({
             'marginRight': originalMargin + 'px'
         }, 1000);
@@ -75,20 +77,23 @@ $(function () {
         //Links
         var $linkDiv = $('<div></div>'),
             $adLink = $('<a href=#></a>'),
+            $menuLink = $('<a href=#></a>'),
             $backLink = $('<a href=#></a>');
 
         $linkDiv.addClass('links');
         $adLink.text('Buy ads for this cart');
+        $menuLink.text('Update menu items');
         $backLink.text('Return to manager');
 
         $linkDiv.append($adLink);
+        $linkDiv.append('<br>');
+        $linkDiv.append($menuLink);
         $linkDiv.append('<br>');
         $linkDiv.append($backLink);
 
         //Adding nodes
         $mainContent.append($formDiv);
         $mainContent.append($linkDiv);
-        $formDiv.fadeIn();
 
         $backLink.click(destroyForm);
 
@@ -105,9 +110,10 @@ $(function () {
         $manager.animate({
             'marginRight': $(document).width()
         }, 1000, function () {
-            $manager.addClass('hidden');
+            $manager.fadeOut(0);
             $addLink.fadeOut(0);
             $reviews.fadeOut(0);
+            $addForm.fadeOut(0);
 
             //Populate main-content with form
             $.getJSON('/_serve', {'item_type': 'cart', 'permit_number': $manageItem.find('.license').text().trim()}, createForm);
@@ -119,6 +125,6 @@ $(function () {
     $addLink.click(function (e) {
         e.preventDefault();
 
-        $mainContent.find('#add-form').slideToggle();
+        $addForm.slideToggle();
     });
 });
