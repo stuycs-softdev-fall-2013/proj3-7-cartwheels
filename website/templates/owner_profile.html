@@ -1,6 +1,6 @@
-{% extends "layout.html" %}
+{% extends "reviews_layout.html" %}
 
-{% block head %}
+{% block head_continued %}
 <style>
   h2 {
     text-align: center;
@@ -108,7 +108,7 @@
 {% endblock %}
 
 
-{% block main_content %}
+{% block before_reviews %}
 <h2>Welcome {{ user.first_name }}, Manage Your Carts</h2>
 <div id=cart-manager class=centered-relative>
   <div id=manager-container>

@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<style>
+  .reviews-header {
+    border-bottom: 1px solid #aaa;
+    font-weight: normal;
+    width: 600px;
+  }
+
+  .reviews {
+    width: 500px;
+    margin-left: 10px;
+  }
+
+  .review-item {
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 5px;
+  }
+
+  .review-item:hover {
+    background-color: #eee;
+  }
+
+  .review-rating {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .review-text {
+    width: 400px;
+    padding-bottom: 20px;
+  }
+
+  .rating-element {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    color:#FFF;
+    background:#ccc;
+    text-align:center;
+    font-size:30px;
+    margin-right:2px;
+    line-height:30px;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+  }
+
+  .rating-checked {
+    background:#F90;
+    color:#FFF;
+  }
+</style>
+{% block head_continued %}
+{% endblock %}
+{% endblock %}
+
+{% block main_content %}
+{% block before_reviews %}
+{% endblock %}
+
+<div class=reviews>
+  <h2 class=reviews-header>Reviews</h2>
+  {% for rev in reviews %}
+  <div class=review-item>
+    <div class=review-user>
+      {{rev.user}}
+    </div>
+    <div class=review-rating>
+      {% for i in range(0, rev.rating) %}
+      <span class="rating-element rating-checked"></span>
+      {% endfor %}
+      {% for i in range(rev.rating, 5) %}
+      <span class="rating-element"></span>
+      {% endfor %}
+    </div>
+    <div class=review-text>
+      {{rev.text}}
+    </div>
+  </div>
+  {% endfor %}
+  {% if reviews|length == 0 %}
+  No Reviews to Display
+  {% endif %}
+</div>
+
+{% block after_reviews %}
+{% endblock %}
+{% endblock %}
