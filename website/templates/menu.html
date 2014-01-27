@@ -5,6 +5,7 @@
   .menu-item {
     position: relative;
     width: 500px;
+    height: 100px;
     padding: 20px;
     border-bottom: 1px solid #ccc;
   }
@@ -12,9 +13,10 @@
   .menu-image {
     position: absolute;
     top: 5px;
-    right: 150px;
+    right: 10px;
     height: 75px;
     overflow: hidden;
+    border: 3px solid #222;
   }
 
   .menu-name {
@@ -88,7 +90,7 @@
       {% endfor %}
     </div>
     <div class=menu-price>
-      {{item['price']}}
+      ${{item['price']}}
     </div>
   </div>
   {% endfor %}
