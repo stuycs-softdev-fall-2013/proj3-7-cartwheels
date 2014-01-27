@@ -13,11 +13,15 @@ def cart_page(cid):
     if request.method == 'POST':
         form = request.form
         cart = context['cart']
+        tags = [t.strip() for t in form['tags'].split(',')]
 
         if reviews.find_one(user=context['user'].username,
                 cart_id=cart.get_id()) is None:
             cart.add_review(context['user'].username, text=form['review'],
                     rating=int(form['rating']))
+            cart.tags += tags
+            cart.save()
+
         else:
             context['error'] = 'You already wrote a review for this cart'
 
