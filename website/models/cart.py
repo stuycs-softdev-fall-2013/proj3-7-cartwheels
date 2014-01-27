@@ -52,7 +52,7 @@ class CartModel(Model):
         rev = reviews.insert(cart_id=self.get_id(), user=user, **kwargs)
         ratings = [r.rating for r in self.get_reviews()]
         self.rating = float(sum(ratings)) / float(len(ratings))
-        self.review_ids += rev.get_id()
+        self.review_ids += [rev.get_id()]
         self.save()
         return rev
 
