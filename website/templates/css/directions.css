@@ -1,51 +1,31 @@
- html, body {
+html, body {
       height: 100%;
       margin: 0px;
       padding: 0px
       }
 
-
-      #panel {
- /*     position: absolute;
+#panel {
+      position: absolute;
       top: 5px;
       left: 50%;
       margin-left: -180px;
       z-index: 5;
-*/
       background-color: #fff;
       padding: 5px;
       border: 1px solid #999;
-      }
-
-
-
-#map-canvas-1 {
-      height: 100%; 
-      padding: 0px;
-	width:72%;	
-	float:left;
-      }
-
-#directions-panel-1 {
-      height: 100%;
-	width:25%;
-      float: right;
-      
-      overflow: auto;
-      }
-
-.directions{
-	outline-style: solid;	
-	width:800px;
-	height:500px;
-	margin-left: auto;
-	margin-right: auto;
-	display:none;
 }
 
+#directions-panel {
+      height: 100%;
+      float: right;
+      width: 390px;
+      overflow: auto;
+}
 
-	
-
-
-    
+#map-canvas {
+      height: 100%;
+      margin: 0px;
+      padding: 0px
+      margin-right: 400px;
+}
 

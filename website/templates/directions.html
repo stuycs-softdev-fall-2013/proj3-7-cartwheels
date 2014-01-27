@@ -14,8 +14,23 @@
 
 <script>
 
-create_map("345 Chambers street, new york, ny","18 fuller place new york, ny","map-canvas-1", "directions-panel-1", "mode-1");
 
+
+create_map("345 Chambers street, new york, ny","200 42nd street new york, ny","map-canvas", "directions-panel", "mode");
+
+
+
+
+
+ var test = function(){
+	alert(document.getElementById('mode').value);
+	alert("testing");	
+	alert(mode_id);
+	alert(calcRoute);
+	
+	alert("testing 2");
+	calcRoute();
+} 	
 
 </script>
 
@@ -28,17 +43,9 @@ create_map("345 Chambers street, new york, ny","18 fuller place new york, ny","m
 
 <body>
 
-<span class="results">
-	<h3>blah blah</h3>
-	<p>sjdofijsdofij</p>
-	<button type="button">get directions</button>
-
-<br>
-	
-<span class="directions">
     <div id="panel">
       <b>Mode of Travel: </b>
-      <select id="mode-1" onchange="calcRoute();">
+      <select id="mode" onchange="calcRoute();">
 	<option value="DRIVING">Driving</option>
 	<option value="WALKING">Walking</option>
 	<option value="BICYCLING">Bicycling</option>
@@ -48,17 +55,12 @@ create_map("345 Chambers street, new york, ny","18 fuller place new york, ny","m
 <br>
 <br>
 
-    <div id="directions-panel-1"></div>
-    <div id="map-canvas-1"></div>
-
-</span>
-</span>
+    <div id="directions-panel"></div>
+    <div id="map-canvas"></div>
 
 
 
-   <script>
-      document.getElementById('mode-1').value = "WALKING";
-	//calcRoute();	
-   </script>	 
+
+
   </body>
 </html>
