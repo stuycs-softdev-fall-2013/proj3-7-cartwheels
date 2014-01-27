@@ -8,8 +8,6 @@ $(function () {
         $addLink = $('.add-link'),
         $addForm = $('#add-form');
 
-    var originalMargin;
-
     //Initialization
     imagesLoaded($manager, function () {
         resizeImages($manager.get(0), 100);
@@ -23,10 +21,6 @@ $(function () {
         $manager.fadeIn(0);
         $addLink.fadeIn(0);
         $reviews.fadeIn(0);
-
-        $manager.animate({
-            'marginRight': originalMargin + 'px'
-        }, 1000);
 
         $mainContent.find('#info-form').remove();
         $mainContent.find('.links').remove();
@@ -76,18 +70,26 @@ $(function () {
 
         //Links
         var $linkDiv = $('<div></div>'),
+            $viewLink = $('<a href=#></a>'),
             $adLink = $('<a href=#></a>'),
             $menuLink = $('<a href=#></a>'),
             $backLink = $('<a href=#></a>');
 
         $linkDiv.addClass('links');
+
+        $viewLink.text('View cart page');
         $adLink.text('Buy ads for this cart');
         $menuLink.text('Update menu items');
         $backLink.text('Return to manager');
 
-        $linkDiv.append($adLink);
+        $viewLink.attr('href', datum.url_path);
+        $menuLink.attr('href', datum.url_path + '/menu');
+
+        $linkDiv.append($viewLink);
         $linkDiv.append('<br>');
         $linkDiv.append($menuLink);
+        $linkDiv.append('<br>');
+        $linkDiv.append($adLink);
         $linkDiv.append('<br>');
         $linkDiv.append($backLink);
 
@@ -105,19 +107,13 @@ $(function () {
         var $this = $(this),
             $manageItem = $this.parent().parent();
 
-        originalMargin = parseInt($manager.css('marginRight'), 10);
+        $manager.fadeOut(0);
+        $addLink.fadeOut(0);
+        $reviews.fadeOut(0);
+        $addForm.fadeOut(0);
 
-        $manager.animate({
-            'marginRight': $(document).width()
-        }, 1000, function () {
-            $manager.fadeOut(0);
-            $addLink.fadeOut(0);
-            $reviews.fadeOut(0);
-            $addForm.fadeOut(0);
-
-            //Populate main-content with form
-            $.getJSON('/_serve', {'item_type': 'cart', 'permit_number': $manageItem.find('.license').text().trim()}, createForm);
-        });
+        //Populate main-content with form
+        $.getJSON('/_serve', {'item_type': 'cart', 'permit_number': $manageItem.find('.license').text().trim()}, createForm);
     };
 
     $link.click(displayForm);

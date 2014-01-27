@@ -58,8 +58,8 @@ $(function () {
 
             //add content
             var $contentDiv = $('<div></div>'),
-                $rating = $('<div></div>'),
                 $name = $('<div></div>'),
+                $rating = $('<div></div>'),
                 $zip = $('<div></div>'),
                 $link = $('<a>View Page</a>'),
                 $tagsDiv = $('<div></div>');
@@ -78,10 +78,10 @@ $(function () {
             $link.addClass('link');
             $link.attr('href', datum.url_path);
 
-            $contentDiv.append('<b>Rating</b>')
-                .append($rating)
-                .append('<b>Name</b>')
+            $contentDiv.append('<b>Name</b>')
                 .append($name)
+                .append('<b>Rating</b>')
+                .append($rating)
                 .append('<b>Zip Code</b>')
                 .append($zip)
                 .append($link);
@@ -89,12 +89,12 @@ $(function () {
             $item.append($contentDiv);
 
             //add tags
-            $tagsDiv.addClass('tags-meta');
-            $.each(datum.tags, function (index, tag) {
-                $tagsDiv.append('<span>' + tag + '</span>');
-            });
+            //$tagsDiv.addClass('tags-meta');
+            //$.each(datum.tags, function (index, tag) {
+            //    $tagsDiv.append('<span>' + tag + '</span>');
+            //});
 
-            $item.append($tagsDiv);
+            //$item.append($tagsDiv);
 
             //append item
             $searchResults.append($item);
