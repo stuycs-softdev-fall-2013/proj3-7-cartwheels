@@ -75,12 +75,11 @@ def process():
    calorieCount += int(drink[1])
 
    if (typeOfDish == "Why are you a male vegetarian???"):
-      return typeOfDish 
+      return render_template("MVresults.html",insult=typeOfDish);
    elif (typeOfDish != 'A cheeseburger'):
-      return "I BET YOU'D LIKE: " + typeOfDish + typeOfFormat + typeOfSauce + typeOfDrink + "<br><br>Calorie Count (not at all scientific): " + str(calorieCount)
+      return render_template("results.html", typeOfDish=typeOfDish, typeOfFormat=typeOfFormat, typeOfSauce=typeOfSauce, typeOfDrink=typeOfDrink,calorieCount=calorieCount)
    else:
-      return "I BET YOU'D LIKE: " + typeOfDish + typeOfDrink + "<br><br>Calorie Count (not at all scientific): " + str(calorieCount)
-   
+      return render_template("results.html", typeOfDish=typeOfDish, typeOfFormat=typeOfFormat, typeOfSauce=typeOfSauce, typeOfDrink=typeOfDrink, calorieCount=calorieCount)
 
 if __name__ == "__main__":
    app.debug = True
