@@ -1,0 +1,42 @@
+<h1>Input Your Information</h1>
+
+<form method = "POST">
+
+<h3>Gender:</h3>
+<input type = "radio" name = "gender" value = 0>Male<br>
+<input type = "radio" name = "gender" value = 1>Female<br>
+
+<br>
+<h3>Vegetarian?</h3>
+<input type = "radio" name = "veg" value = 0>Yes<br>
+<input type = "radio" name = "veg" value = 1>No<br>
+<br>
+
+<br>
+<h3>Are you thirsty?</h3>
+<input type = "radio" name = "thirst" value = 0>Yes<br>
+<input type = "radio" name = "thirst" value = 1>No<br>
+<br>
+
+<br>
+<h3>Boldness (low to high):</h3>
+{% for number in range(3) %}
+<input type = "radio" name = "boldness" value = {{number}}>{{number + 1}}
+<br>
+{% endfor %}
+
+<br>
+<h3>Concern for Digestive System (low to high):</h3>
+{% for number in range(3) %}
+<input type = "radio" name = "digestion" value = {{number}}>{{number + 1}}
+<br>
+{% endfor %}
+
+<br>
+<input type = "Submit" name = "button" value = "Submit">
+<input type = "submit" name = "button" value = "Go Back">
+
+
+</form>
+
+
