@@ -1,6 +1,6 @@
 from flask import render_template, request
 from bson import ObjectId
-from website import carts, reviews
+from website import carts, reviews, photos
 from website.views.utils import base_context
 
 
@@ -23,20 +23,29 @@ def cart_page(cid):
             cart.save()
 
         else:
-            context['error'] = 'You already wrote a review for this cart'
+            context['error'] = 'You\'ve already written a review for this cart'
 
     return render_template('cart.html', **context)
 
 
-# Manage carts
-def manage_cart(cid):
+def menu_page(cid):
     context = base_context()
     context['cart'] = carts.find_one(_id=ObjectId(cid));
-    return render_template('manage.html', **context)
 
+    if request.method == 'POST':
+        form = request.form
+        tags = [t.strip() for t in form['tags'].split(',')]
+        image = ''
 
-# Review
-def review(cid):
-    context = base_context()
-    context['cart'] = carts.find_one(_id=ObjectId(cid));
-    return render_template('review.html', **context)
+        if request.files.has_key('file'):
+            try:
+                f = request.files['file']
+                image = photos.insert(image_file=f, is_cart=False, is_default=False, title=form['name'])
+
+            except IOError:
+                print "error"
+
+        menu_item = {'name': form['name'], 'price': form['price'], 'tags': tags, 'image': image.url_path}
+        context['cart'].add_menu(menu_item)
+
+    return render_template('menu.html', **context)
