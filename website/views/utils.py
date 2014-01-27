@@ -22,15 +22,17 @@ def serialize(obj):
             json.dumps(obj[k])
 
         except TypeError:
-            if type(obj[k]) == dict:
-                serialize(obj[k])
+            if type(obj) == dict:
+                if type(obj[k]) == dict:
+                    serialize(obj[k])
+                else:
+                    obj[k] = str(obj[k])
 
-            elif type(obj[k]) == list:
-                for i in obj[k]:
-                    serialize(i)
+            elif type(obj) == list:
+                serialize(k)
 
             else:
-                obj[k] = str(obj[k])
+                obj = str(obj)
 
 
 # Get carts near a certain location

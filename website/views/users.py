@@ -10,8 +10,14 @@ def profile():
         return redirect(url_for('index'))
 
     user = context['user']
+    reviews = []
 
     if user.is_owner:
+        for license in user.licenses:
+            reviews += carts.find_one(permit_number=license).get_reviews()
+
+        context['reviews'] = reviews
+
         if request.method == 'POST':
             form = request.form
 
@@ -28,6 +34,8 @@ def profile():
 
         return render_template('owner_profile.html', **context)
 
+    reviews = user.get_reviews()
+    context['reviews'] = reviews
     context['target_user'] = user
     return render_template('user_profile.html', **context)
 
