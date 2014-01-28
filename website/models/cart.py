@@ -1,4 +1,5 @@
 # Models and Collections for carts
+from operator import attrgetter
 from website.models.base import Collection, Model
 from website.models.review import Review
 from website.models.tag import Tag
@@ -74,7 +75,11 @@ class Cart(Collection):
 
     def insert(self, **kwargs):
         return super(Cart, self).insert(tags=[], review_ids=[], image_paths=[],
-                rating=None, url_path='', menu=[], **kwargs)
+            rating=None, url_path='', menu=[], **kwargs)
+
+    def find(self, offset=0, number=0, **kwargs):
+        return self.to_objects(self.objects.find(kwargs).sort('rating', -1).skip(offset).limit(number))
+
 
     # Get by tag function
     def get_by_tag(self, label):
