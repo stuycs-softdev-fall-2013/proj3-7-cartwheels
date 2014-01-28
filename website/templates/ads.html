@@ -63,6 +63,10 @@ writeln('<img name="George" src='+imageURL+' style="display:block"></body></html
 close();		
 }}
 
+function newPopup(url) {
+	popupWindow = window.open(
+		url,'popUpWindow','height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+}
 </script>
 </head>
 <body> 
@@ -74,6 +78,8 @@ close();
 <td> <b> Type </b> </td>
 <td> <b> Number </b> </td> 
 <td> <b> Example </b> </td>
+<td> <b> Purchase </b> </td>
+
 </tr>
 <tr>
 <td> Leaderboard </td> 
@@ -81,7 +87,10 @@ close();
 <td>
 <a href="javascript:popImage('images/Large_Ad.png','Two Large Leaderboards')">
 Click Here
-</a>
+</a> </td>
+<td> 
+<a href="JavaScript:newPopup('buyAdPlatinum.html');"> Buy This</a>
+ </td>
 
 </tr>
 </table> 
@@ -98,6 +107,8 @@ One leaderboard will appear on the Results Pages
 <td> <b> Type </b> </td>
 <td> <b> Number </b> </td> 
 <td> <b> Example </b> </td>
+<td> <b> Purchase </b> </td>
+
 </tr>
 <tr>
 <td> Box </td> 
@@ -107,6 +118,9 @@ One leaderboard will appear on the Results Pages
 Click Here
 </a>
  </td>
+<td>
+<a href="JavaScript:newPopup('buyAdGold.html');"> Buy This</a>
+</td>
 </tr>
 </table>
 <br> 
@@ -123,6 +137,8 @@ One box  will appear on the Results Pages
 <td> <b> Type </b> </td>
 <td> <b> Number </b> </td> 
 <td> <b> Example </b> </td>
+<td> <b> Purchase </b> </td>
+
 </tr>
 <tr>
 <td> Leaderboard </td> 
@@ -132,6 +148,10 @@ One box  will appear on the Results Pages
 Click Here
 </a>
  </td>
+<td> 
+<a href="JavaScript:newPopup('buyAdSilver.html');"> Buy This</a>
+ </td>
+
 </tr>
 </table> 
 <br> This ad will appear on the Cart Pages
@@ -144,6 +164,8 @@ Click Here
 <td> <b> Type </b> </td>
 <td> <b> Number </b> </td> 
 <td> <b> Example </b> </td>
+<td> <b> Purchase </b> </td>
+
 </tr>
 <tr>
 <td> Box </td> 
@@ -153,9 +175,13 @@ Click Here
 Click Here
 </a>
 </td>
+<td>
+<a href="JavaScript:newPopup('buyAdBronze.html');"> Buy This</a>
+</td>
+
 </tr>
 </table> 
-<br> This ad will apear on the Cart Pages
+<br> This ad will appear on the Cart Pages
 
 </div>
 </body> 
