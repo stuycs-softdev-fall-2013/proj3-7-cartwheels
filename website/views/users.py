@@ -22,7 +22,8 @@ def profile():
             form = request.form
 
             if not form.has_key('name'):
-                if carts.find_one(permit_number=form['license']) is not None:
+                if carts.find_one(permit_number=form['license']) is not None\
+                        and not form['license'] in user.licenses:
                     user.licenses += [form['license']]
                     user.save()
 
