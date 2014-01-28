@@ -2,16 +2,24 @@
 <html lang = "en">
 <head>
 <title>Results</title>
-<style>
-img{
-height: 100px;
-float: left;
-}
-</style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 </head>
 <body>
-<div id="images"></div>
+I BET YOU'D LIKE: {{typeOfDish}}{{typeOfFormat}}{{typeOfSauce}}{{typeOfDrink}}
+<br><br>
+RELATIVELY ARBITRARY CALORIE COUNT: {{calorieCount}}
+<br><br><br>
+
+<div id = "imgs"></div>
+
+<u>*Press refresh to see another suggestion.</u><br><br>
+<a href = "/appetizer">Input new info</a><br><br>
+<a href = "/">Appetizer Home Page</a><br>
+
+
+<br><br>
+
+
 <script>
 
 
@@ -80,27 +88,96 @@ console.log(JSONcall);
 
 (function(){
 $.getJSON(JSONcall).done(function(data){
-var farmID = data.photos.photo[0].farm;
-var serverID = data.photos.photo[0].server;
-var ID = data.photos.photo[0].id;
-var secret = data.photos.photo[0].secret;
+var resultsLength = data.photos.photo.length;
+console.log("length: " + resultsLength);
+if (resultsLength > 0){
+var index = Math.floor(Math.random() * resultsLength);
+console.log("index: " + index);
+var farmID = data.photos.photo[index].farm;
+var serverID = data.photos.photo[index].server;
+var ID = data.photos.photo[index].id;
+var secret = data.photos.photo[index].secret;
 var photoURL = "http://farm" + farmID + ".staticflickr.com/" + serverID + "/" + ID + "_" + secret + ".jpg";
+
+var img = document.createElement("img");
+img.src = photoURL;
+img.height = 250;
+img.width = 250;
+var src = document.getElementById("imgs");
+src.appendChild(img);
 console.log(photoURL);
+}
+else{
+tagMode = "any";
+JSONcall = ("http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=" + APIKey + "&tags=" + TAGS + "&tag_mode=" + tagMode + "&format=json&nojsoncallback=1");
+console.log(JSONcall);
+(function(){
+$.getJSON(JSONcall).done(function(data){
+resultsLength = data.photos.photo.length;
+console.log(resultsLength);
+var index = Math.floor(Math.random() * resultsLength);
+var farmID = data.photos.photo[index].farm;
+var serverID = data.photos.photo[index].server;
+var ID = data.photos.photo[index].id;
+var secret = data.photos.photo[index].secret;
+var photoURL = "http://farm" + farmID + ".staticflickr.com/" + serverID + "/" + ID + "_" + secret + ".jpg";
+
+var img = document.createElement("img");
+img.src = photoURL;
+img.height = 250;
+img.width = 250;
+var src = document.getElementById("imgs");
+src.appendChild(img);
+console.log(photoURL);
+})})();}
+
 })})();
 
+console.log(" type of drink: " + "{{typeOfDrink}}")
+if ("{{typeOfDrink}}" != ". And if you&#39;re not thirsty yet, you will be."){
+tagMode = "any";
+var DRINK;
+if ("{{typeOfDrink}}" === ", and a Snapple."){
+DRINK = "snapple";
+}
+else if ("{{typeOfDrink}}" === ", and a Sprite."){
+DRINK = "sprite";
+}
+else if ("{{typeOfDrink}}" === ", and a Coke."){
+DRINK = "coke";
+}
+else if ("{{typeOfDrink}}" === ", and a Nestea."){
+DRINK = "nestea";
+}
+else{
+DRINK = "water%2C+poland spring%2C+aquafina%2C+fiji";
+}
+
+TAGS = DRINK;
+JSONcall = ("http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=" + APIKey + "&tags=" + TAGS + "&tag_mode=" + tagMode + "&format=json&nojsoncallback=1");
+
+(function(){
+console.log(JSONcall);
+$.getJSON(JSONcall).done(function(data){
+var resultsLength = data.photos.photo.length;
+console.log(resultsLength);
+var index = Math.floor(Math.random() * resultsLength);
+console.log(index);
+var farmID = data.photos.photo[index].farm;
+var serverID = data.photos.photo[index].server;
+var ID = data.photos.photo[index].id;
+var secret = data.photos.photo[index].secret;
+var photoURL = "http://farm" + farmID + ".staticflickr.com/" + serverID + "/" + ID + "_" + secret + ".jpg";
+console.log(photoURL);
+var img = document.createElement("img");
+img.src = photoURL;
+img.height = 250;
+img.width = 250;
+var src = document.getElementById("imgs");
+src.appendChild(img);
+})})();
+}
 </script>
 
-
-I BET YOU'D LIKE: {{typeOfDish}}{{typeOfFormat}}{{typeOfSauce}}{{typeOfDrink}}
-<br><br>
-RELATIVELY ARBITRARY CALORIE COUNT: {{calorieCount}}
-<br><br><br>
-
-<u>*Press refresh to see another suggestion.</u><br><br>
-<a href = "/appetizer">Input new info</a><br><br>
-<a href = "/">Appetizer Home Page</a><br>
-
-
-<br><br>
 </body>
 </html>
