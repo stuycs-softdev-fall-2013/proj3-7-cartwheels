@@ -13,10 +13,11 @@ var codeAddress;
 
       var slat, slng, elat, elng;
       var start, end;
+var mode_id;
 
+var create_map = function(sAddress, eAddress, map_id, directions_id, id_mode){
 
-var create_map = function(sAddress, eAddress, map_id, directions_id, mode_id){
-
+	mode_id = id_mode;
 
       initialize = function() {
       geocoder = new google.maps.Geocoder();
@@ -33,35 +34,50 @@ var create_map = function(sAddress, eAddress, map_id, directions_id, mode_id){
       directionsDisplay.setMap(map);
       directionsDisplay.setPanel(document.getElementById(directions_id));
       codeAddress();
-      
+
+
+
+
+
+
+ 
       }
 
       codeAddress = function() {
 
-      geocoder.geocode( { 'address': sAddress}, function(results, status) {
+      geocoder.geocode( 
+{ 'address': sAddress}, 
+function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-      start = results[0].geometry.location;
-      map.setCenter(results[0].geometry.location);
+      	start = results[0].geometry.location;
+      	map.setCenter(results[0].geometry.location);
+	
       }
       else {
-      alert("Geocode was not successful because: " + status);
+      	alert("Geocode was not successful because: " + status);
       }
-      });
+}     );
       
 
       geocoder.geocode( { 'address': eAddress}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
       end = results[0].geometry.location;
+
+	calcRoute();
       }
       else {
       alert("Geocode was not successful because: " + status);
       }
       });
-      
+     
+
+ 
       }
 
       calcRoute = function() {
-      var selectedMode = document.getElementById(mode_id).value;
+     
+	var selectedMode = document.getElementById(mode_id).value;
+	
       var request = {
       origin: start,
       destination: end,
@@ -71,10 +87,12 @@ var create_map = function(sAddress, eAddress, map_id, directions_id, mode_id){
       if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
       }
+	else{
+		alert("error displaying directions");
+		}
       });
       }
 
       google.maps.event.addDomListener(window, 'load', initialize);
-
 
 }

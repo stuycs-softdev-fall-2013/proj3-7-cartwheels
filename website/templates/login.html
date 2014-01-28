@@ -1,1 +1,32 @@
-Login
+{% extends "layout.html" %}
+
+{% block head %}
+<style>
+  .form {
+    width: 50%;
+  }
+</style>
+{% endblock %}
+
+
+{% block main_content %}
+<div class="form">
+  <div class="form-header">Login</div>
+
+  <form method=POST>
+    <input class="input form-input required" name="email" type=text placeholder="Email address">
+    <input class="input form-input required" name="pass" type=password placeholder="Password">
+    <input type=submit name=button value=login>
+  </form>
+</div>
+
+<div class="form-errors">
+  {{error}}
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<!--scripts-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/form-utils.js') }}"></script>
+{% endblock %}

@@ -2,8 +2,30 @@
 
 <head>
 
-<link rel="stylesheet" type="text/css" href="css/userpage.css">
+<link rel="stylesheet" type="text/css" href="../static/css/userpage.css">
 
+<script>
+
+
+var toggleDisplayElem = function(id){
+	var elem = document.getElementById(id);
+	if(elem.style.display == "block"){
+		elem.style.display = "none";
+	} else {
+		elem.style.display = "block";
+	}
+}
+
+</script>
+
+<style>
+#nameChange,
+#emailChange,
+#passChange
+{
+	display:none;
+}
+</style>
 
 </head>
 
@@ -20,12 +42,45 @@
 
        <h2>Profile</h2>
 	<p >{{user.first_name}} {{user.last_name}}</p>	
-	<img src={{user.picture}} default="upload a profile picture" width="200" height="200"></img>
+	<p> {{user.email}}</p>	
 	<br>
 	<br>
 
-	<a class="user-profile" href="#">change profile picture</a>
-     </div>
+	<a onclick="toggleDisplayElem('nameChange')"class="user-profile" >Change Name</a>
+		<form id="nameChange">
+	<br>
+	<br>
+	First Name:  <input name="newFirstName" type="text" value={{user.first_name}}><br>
+	Last Name:  <input name="newLastName" type="text" value={{user.first_name}}><br>
+	<input type="submit" value="submit" onclick="toggleDisplayElem('nameChange')" >
+		</form>
+
+<br><br>
+
+	<a onclick="toggleDisplayElem('emailChange')" class="user-profile" >Change Email</a>
+		<form id="emailChange">
+	<br>
+	<br>
+	New Email:  <input name="newEmail" type="text" value={{user.email}}><br>
+	<input type="submit" value="submit" onclick="toggleDisplayElem('emailChange')" >
+		</form>
+
+<br><br>
+
+	<a onclick="toggleDisplayElem('passChange')" class="user-profile" >Change Password</a>
+		<form id="passChange">
+	<br>
+	<br>
+	Old Password:  <input name="newEmail" type="password" value=""><br>
+	New Password:  <input name="newEmail" type="password" value=""><br>
+	<input type="submit" value="submit" onclick="toggleDisplayElem('passChange')" >
+		</form>
+
+
+
+
+
+</div>
      <div class="col-lg-6">
        <h2>Welcome, {{user.username}}</h2>
 	<p>Here are your most recent reviews:</p>
@@ -36,12 +91,12 @@
          <br>
          <div class="list-group">
 	    
-       	 	<a href="/directions/{{location}}/{{cart['address']}}" class="list-group-inner active">
+       	 	<div class="list-group-inner active">
           	<h4 class="list-group-h4">{{cart['name']}}</h4>
-		<p>review stuff</p>
-         	<img src="{{cart['img_url']}}" alt="picture" width="150" height="150">
+		<img class="rating-pics" src={{cart['rating_url'] alt="rating picture">
+         	<img src={{cart['img_url']}} alt="cart picture" width="150" height="150">
          	<p class="list-group-item-text"><br>Location : {{cart['address']}}</p> 
-         	</a>
+         	</div>
            
          </div>
          <br>

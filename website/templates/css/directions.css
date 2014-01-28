@@ -1,43 +1,37 @@
- html, body {
+html, body {
       height: 100%;
       margin: 0px;
       padding: 0px
       }
 
-
-      #panel {
- /*     position: absolute;
+#panel {
+      /*position: absolute;
       top: 5px;
       left: 50%;
       margin-left: -180px;
-      z-index: 5;
-*/
+      z-index: 5;*/
       background-color: #fff;
       padding: 5px;
-      border: 1px solid #999;
-      }
+      border: 2px solid #999;
+	width: 197px;
+	margin-left:auto;
+	margin-right:auto;
+}
 
-
-
- #map-canvas-1 {
-      height: 100%; 
-      padding: 0px;
-	width: 300px;
-	float:left;
-      }
-
-      #directions-panel-1 {
-      height: 100%;
-      float: right;
-      
-      overflow: auto;
-      }
-
-.results{
-	margin-left:50px;
-	margin-top:100px;
+#directions-panel {
 	
-}  
+      height: 400px;
+	float: right;
+     margin-right: 150px;
+      width: 390px;
+      overflow: auto;
+}
 
-    
+#map-canvas {
+      height: 500px;
+	width: 500px;
+      margin-left: 200px;
+      padding: 0px
+      margin-right: 400px;
+}
 

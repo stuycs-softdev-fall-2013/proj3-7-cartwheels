@@ -51,8 +51,9 @@ class Collection(object):
         return None
 
     # Returns a model list corresponding to find in database
-    def find(self, **kwargs):
-        return self.to_objects(self.objects.find(kwargs))
+    def find(self, offset=0, number=20, **kwargs):
+        return self.to_objects(self.objects.find(kwargs).skip(offset).limit(number))
+
 
     # Returns a model object corresponding to find_one in database
     def find_one(self, **kwargs):
@@ -75,3 +76,10 @@ class Collection(object):
     # Remove objects based on keyword parameters
     def remove(self, **kwargs):
         self.objects.remove(kwargs)
+
+    # Find within
+    def within(self, box, offset=0, number=20, **kwargs):
+        box = {'loc': {'$within': {'$box': box}}}
+        kwargs = dict(box.items() + kwargs.items())
+        return self.find(offset, number, **kwargs)
+

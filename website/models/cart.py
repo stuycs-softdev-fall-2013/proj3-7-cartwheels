@@ -1,4 +1,5 @@
 # Models and Collections for carts
+from operator import attrgetter
 from website.models.base import Collection, Model
 from website.models.review import Review
 from website.models.tag import Tag
@@ -52,7 +53,7 @@ class CartModel(Model):
         rev = reviews.insert(cart_id=self.get_id(), user=user, **kwargs)
         ratings = [r.rating for r in self.get_reviews()]
         self.rating = float(sum(ratings)) / float(len(ratings))
-        self.review_ids += rev.get_id()
+        self.review_ids += [rev.get_id()]
         self.save()
         return rev
 
@@ -61,13 +62,24 @@ class CartModel(Model):
         return reviews.find(cart_id=self.get_id(), **kwargs)
 
 
+    # Def add menu
+    def add_menu(self, menu_item):
+        self.menu += [menu_item]
+        self.save()
+
+
 class Cart(Collection):
 
     def __init__(self):
         super(Cart, self).__init__(CartModel)
 
     def insert(self, **kwargs):
-        return super(Cart, self).insert(tags=[], review_ids=[], image_paths=[], rating=None, url_path='', **kwargs)
+        return super(Cart, self).insert(tags=[], review_ids=[], image_paths=[],
+            rating=None, url_path='', menu=[], **kwargs)
+
+    def find(self, offset=0, number=0, **kwargs):
+        return self.to_objects(self.objects.find(kwargs).sort('rating', -1).skip(offset).limit(number))
+
 
     # Get by tag function
     def get_by_tag(self, label):

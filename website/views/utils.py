@@ -1,7 +1,8 @@
 from flask import session, request
 from bson import ObjectId
 from website import api_key, users, carts, reviews, models, photos
-import json, urllib, re
+from website.settings import DIST_OFFSET
+import json, urllib, urllib2, re
 
 
 def base_context():
@@ -19,62 +20,131 @@ def serialize(obj):
     for k in obj:
         try:
             json.dumps(obj[k])
+
         except TypeError:
-            if type(obj[k]) == dict:
-                serialize(obj[k])
-            elif type(obj[k]) == list:
-                for i in obj[k]:
-                    serialize(i)
+            if type(obj) == dict:
+                if type(obj[k]) == dict:
+                    serialize(obj[k])
+                else:
+                    obj[k] = str(obj[k])
+
+            elif type(obj) == list:
+                serialize(k)
+
             else:
-                obj[k] = str(obj[k])
+                obj = str(obj)
+
+
+# Get carts near a certain location
+def get_carts_near(address, offset, number, search_object={}):
+    # Geocode an address using a google maps api
+    data = urllib2.urlopen('http://maps.googleapis.com/maps/api/geocode/json?api_key%s&sensor=false&address=%s' % (api_key, urllib.quote(address)))
+    data = json.loads(data.read())
+    geometry = data['results'][0]['geometry']
+    results = []
+
+    # Find all results within certain bounds
+    try:
+        box = []
+
+        if geometry.has_key('bounds'):
+            ne = geometry['bounds']['northeast']
+            sw = geometry['bounds']['southwest']
+
+            if ne['lat'] - sw['lat'] > DIST_OFFSET \
+                    and ne['lng'] - sw['lng'] > DIST_OFFSET:
+                box = [ [sw['lat'], sw['lng']], [ne['lat'], ne['lng']] ]
+
+        if box == []:
+            loc = geometry['location']
+            box = [ [loc['lat'] - DIST_OFFSET, loc['lng'] - DIST_OFFSET],
+                    [loc['lat'] + DIST_OFFSET, loc['lng'] + DIST_OFFSET] ]
+
+        results += carts.within(box, offset, number, **search_object);
+
+    except ValueError:
+        pass
+
+    return results
 
 
 # Search for items using regex find
-def search(item_type, keywords, location):
+def search(item_type, offset, number, keywords, location):
     objs = []
 
     # Change objs depending on item type
     if item_type == 'cart':
-
+        # Get results for each keyword
         for word in keywords:
+            if word == '':
+                continue
 
+            # Check each text field
             for tfield in carts.text_fields():
                 kwd = re.compile(r'(?: |^)' + word + '(?: |$)', re.IGNORECASE)
                 search_object = {tfield: kwd}
-                location_fields = carts.location_fields()
-
-                if location != '':
-
-                    for lfield in location_fields:
-                        loc = re.compile(r'(?: |^)' + location + '(?: |$)', re.IGNORECASE)
-                        search_object[lfield] = loc
-                        objs += carts.find(**search_object)
-
-                        search_object.pop(lfield, None)
 
                 if len(objs) == 0:
-                    objs += carts.find(**search_object)
+                    if location != '':
+                        objs += get_carts_near(location, offset, number,
+                                search_object)
+
+                    else:
+                        objs += carts.find(offset, number, **search_object)
+
+        # If there are no keywords, use location instead
+        if len(objs) == 0 and keywords[0] == '' and len(keywords) == 1:
+            objs += get_carts_near(location, offset, number)
 
     elif item_type == 'review':
-
         for word in keywords:
-
             for tfield in reviews.text_fields():
                 kwd = re.compile(r'(?: |^)' + word + '(?: |$)', re.IGNORECASE)
                 search_object = {tfield: kwd}
-                location_fields = carts.location_fields()
                 objs += reviews.find(**search_object)
 
     return objs
 
 
-# Serves the data from the backend to the frontend js using json module
-def serve_data():
+# Searches data
+def search_data():
     item_type = request.args.get('item_type', None)
     keywords = urllib.unquote(request.args.get('keywords')).split(' ')
     location = request.args.get('location', '')
+    offset = int(request.args.get('offset', 0))
+    number = int(request.args.get('number', 20))
 
-    objs = search(item_type, keywords, location)
+    objs = search(item_type, offset, number, keywords, location)
+    results = [o._obj for o in objs]
+
+    # Remove incompatible types
+    for r in results:
+        serialize(r)
+
+    # Return results as an array
+    data = {'results': results}
+    return json.dumps(data)
+
+
+# Serves data
+def serve_data():
+    item_type = request.args.get('item_type', None)
+    rargs = request.args.copy()
+    kwargs = {}
+
+    # Copy request args into a copy
+    for k in rargs.keys():
+        if k != 'item_type':
+            kwargs[k] = rargs[k]
+
+        if '_id' in k:
+            kwargs[k] = ObjectId(rargs[k])
+
+    if item_type == 'cart':
+        objs = carts.find(**kwargs)
+
+    else:
+        objs = reviews.find(**kwargs)
 
     results = [o._obj for o in objs]
 

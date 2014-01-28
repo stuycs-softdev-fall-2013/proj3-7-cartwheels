@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<style>
+  .menu-item {
+    position: relative;
+    width: 500px;
+    height: 100px;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .menu-image {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    height: 75px;
+    overflow: hidden;
+    border: 3px solid #222;
+  }
+
+  .menu-name {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .menu-tags {
+    padding: 5px;
+  }
+
+  .menu-tags span {
+    color: #0066FF;
+  }
+
+  .menu-price {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    background-color: #A971A9;
+    padding: 4px;
+    border-radius: 2px;
+  }
+
+  #menu {
+    margin-left: 50px;
+    margin-top: 50px;
+  }
+
+  #menu-form {
+    margin-left: 200px;
+  }
+
+  #file {
+    margin-top: 15px;
+    padding: 7px;
+    width: auto;
+    border-radius: 2px;
+    border: 1px solid #aaa;
+    background-color: #fff;
+    color: #aaa;
+    text-align: center;
+  }
+
+  #file:hover {
+    background-color: #eee;
+  }
+</style>
+{% endblock %}
+
+
+{% block main_content %}
+<div id=menu>
+  {% for item in cart.menu %}
+  <div class=menu-item>
+    <div class=menu-image>
+      {% if item['image'] != '' %}
+      <img src={{item['image']}}>
+
+      {% else %}
+      <img src={{url_for('serve_default')}}>
+      {% endif %}
+    </div>
+    <div class=menu-name>
+      {{item['name']}}
+    </div>
+    <div class=menu-tags>
+      Tags:
+      {% for tag in item['tags'] %}
+      <span>{{tag}}</span>
+      {% endfor %}
+    </div>
+    <div class=menu-price>
+      ${{item['price']}}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% if user.is_owner and user.get_carts(**{'_id': cart.get_id()}) %}
+<div id=menu-form class=form>
+  <div class="form-header" >Add menu item</div>
+
+  <form method=POST enctype="multipart/form-data">
+    <input class="input form-input required" name="name" type=text placeholder="Name of item">
+    <input class="input form-input required" name="price" type=text placeholder="Price of item">
+    <input class="input form-input required" name="tags" type=text placeholder="Tags for this item">
+    <div id=file>Choose image</div>
+    <input class="input form-input" name=file type=file>
+    <input type=submit name=button value="add item">
+  </form>
+</div>
+
+<div class=form-errors>
+</div>
+{% endif %}
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/form-utils.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/menu-widget.js') }}"></script>
+{% endblock %}

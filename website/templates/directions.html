@@ -1,64 +1,34 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Cartwheels: Directions</title>
+{% extends "layout.html" %}
 
-<link rel="stylesheet" type="text/css" href="css/directions.css">
+{% block head %}
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<title>Directions</title>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Yrvg4i4oRLf9cbnFpyS3YXvxX1PhT5E&v=3.exp&sensor=false"></script>
-<script src="js/directions.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&v=3.exp&sensor=false"></script>
 
- 
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/directions.css')}}">
+<script src="{{url_for('static', filename='js/directions.js')}}"></script>
 
 <script>
-
-create_map("345 Chambers street, new york, ny","18 fuller place new york, ny","map-canvas-1", "directions-panel-1", "mode-1");
-
-
+  create_map("345 Chambers street, new york, ny", new google.maps.LatLng({{cart.loc[0]}}, {{cart.loc[1]}}), "map-canvas", "directions-panel", "mode");
 </script>
+{% endblock %}
 
-<style>
+{% block main_content %}
+<div id="panel">
+  <b>Mode of Travel</b>
+  <select id="mode" onchange="calcRoute();">
+    <option value="DRIVING">Driving</option>
+    <option value="WALKING">Walking</option>
+    <option value="BICYCLING">Bicycling</option>
+    <option value="TRANSIT">Transit</option>
+  </select>
+</div>
 
+<div id="directions-panel"></div>
+<div id="map-canvas"></div>
+{% endblock %}
 
-</style>
-
-</head>
-
-<body>
-
-<span class="results">
-	<h3>blah blah</h3>
-	<p>sjdofijsdofij</p>
-	<a>get directions</a>
-
-<br>
-	
-<span class="directions">
-    <div id="panel">
-      <b>Mode of Travel: </b>
-      <select id="mode-1" onchange="calcRoute();">
-	<option value="DRIVING">Driving</option>
-	<option value="WALKING">Walking</option>
-	<option value="BICYCLING">Bicycling</option>
-	<option value="TRANSIT">Transit</option>
-      </select>
-    </div>
-<br>
-<br>
-
-    <div id="directions-panel-1"></div>
-    <div id="map-canvas-1"></div>
-
-</span>
-</span>
-
-
-
-   <script>
-      document.getElementById('mode-1').value = "WALKING";
-	//calcRoute();	
-   </script>	 
-  </body>
-</html>
+{% block scripts %}
+{% endblock %}
