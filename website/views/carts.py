@@ -49,3 +49,10 @@ def menu_page(cid):
         context['cart'].add_menu(menu_item)
 
     return render_template('menu.html', **context)
+
+
+def directions(cid):
+    context = base_context()
+    context['cart'] = carts.find_one(_id=ObjectId(cid));
+
+    return render_template('directions.html', **context)

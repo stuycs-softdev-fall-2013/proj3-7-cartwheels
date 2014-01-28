@@ -71,7 +71,7 @@ $(function () {
         //Links
         var $linkDiv = $('<div></div>'),
             $viewLink = $('<a href=#></a>'),
-            $adLink = $('<a href=#></a>'),
+            $adLink = $('<a href=/ads></a>'),
             $menuLink = $('<a href=#></a>'),
             $backLink = $('<a href=#></a>');
 
