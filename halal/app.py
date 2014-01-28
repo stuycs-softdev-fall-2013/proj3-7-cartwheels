@@ -35,7 +35,7 @@ def process():
 
    maleOptionsV = [ ["Why are you a male vegetarian???", 0] ]
    femaleOptionsV = [ ["Falafel", 300], ["Mixed veggies", 150] ]
-   maleOptionsNV = femaleOptionsNV = [ ["Chicken", 300], ["Lamb", 350], ["A chicken-falafel combo", 350], ["A chicken-lamb combo", 450], ["A chicken-lamb-falafel combo",500], ["Fish",250], ["Philly cheese steak", 450], ["A cheeseburger", 600] ]
+   maleOptionsNV = femaleOptionsNV = [ ["Chicken", 300], ["Lamb", 350], ["Chicken-falafel combo", 350], ["Chicken-lamb combo", 450], ["Chicken-lamb-falafel combo",500], ["Fish",250], ["Philly cheese steak", 450], ["A cheeseburger", 600] ]
    isVeg = [maleOptionsV, femaleOptionsV]   
    isNotVeg = [maleOptionsNV, femaleOptionsNV]   
    possibilities = [ isVeg, isNotVeg ]
@@ -60,13 +60,13 @@ def process():
 
 
    typeOfFormat = boldness[d['boldness']][0]
-   if (typeOfDish != 'A cheeseburger'): 
+   if (typeOfDish != 'A cheeseburger' and typeOfDish != "Philly cheese steak"): 
       calorieCount += int(boldness[d['boldness']][1])
 
    sauceOptions = concern[d['digestion']]
    sauce = sauceOptions[randrange(0, len(sauceOptions))]
    typeOfSauce = sauce[0]
-   if (typeOfDish != 'A cheeseburger'):
+   if (typeOfDish != 'A cheeseburger' and typeOfDish != "Philly cheese steak"):
       calorieCount += int(sauce[1])
 
    drinkOptions = thirst[d['thirst']]
@@ -76,10 +76,10 @@ def process():
 
    if (typeOfDish == "Why are you a male vegetarian???"):
       return render_template("MVresults.html",insult=typeOfDish);
-   elif (typeOfDish != 'A cheeseburger'):
-      return render_template("results.html", typeOfDish=typeOfDish, typeOfFormat=typeOfFormat, typeOfSauce=typeOfSauce, typeOfDrink=typeOfDrink,calorieCount=calorieCount)
+   elif (typeOfDish != 'A cheeseburger' and typeOfDish != "Philly cheese steak"):
+      return render_template("results.html", typeOfDish=str(typeOfDish), typeOfFormat=typeOfFormat, typeOfSauce=typeOfSauce, typeOfDrink=typeOfDrink,calorieCount=calorieCount)
    else:
-      return render_template("results.html", typeOfDish=typeOfDish, typeOfFormat=typeOfFormat, typeOfSauce=typeOfSauce, typeOfDrink=typeOfDrink, calorieCount=calorieCount)
+      return render_template("results.html", typeOfDish=typeOfDish, typeOfFormat="", typeOfSauce="", typeOfDrink=typeOfDrink, calorieCount=calorieCount)
 
 if __name__ == "__main__":
    app.debug = True
