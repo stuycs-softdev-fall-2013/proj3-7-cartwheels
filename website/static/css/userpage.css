@@ -47,8 +47,15 @@
 	background-color:#0000FF;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	padding: 8px;
-	
+	padding: 8px;	
+	cursor: pointer;
+}
 
+.rating-pics{
+	float: right;
+	margin-top: 20px;
+	margin-right:400px;
 
 }
+
+
