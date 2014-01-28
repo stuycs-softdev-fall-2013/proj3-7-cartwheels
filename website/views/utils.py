@@ -34,6 +34,12 @@ def serialize(obj):
             else:
                 obj = str(obj)
 
+# Borrowed from online to create a unique list
+def unique_objs(seq):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in seq if x.get_id() not in seen and not seen_add(x.get_id())]
+
 
 # Get carts near a certain location
 def get_carts_near(address, offset, number, search_object={}):
@@ -92,6 +98,9 @@ def search(item_type, offset, number, keywords, location):
                     else:
                         objs += carts.find(offset, number, **search_object)
 
+            search_object = {'tags': {'$in': [word]}}
+            objs += carts.find(offset, number, **search_object)
+
         # If there are no keywords, use location instead
         if len(objs) == 0 and keywords[0] == '' and len(keywords) == 1:
             objs += get_carts_near(location, offset, number)
@@ -103,7 +112,7 @@ def search(item_type, offset, number, keywords, location):
                 search_object = {tfield: kwd}
                 objs += reviews.find(**search_object)
 
-    return objs
+    return unique_objs(objs)
 
 
 # Searches data
