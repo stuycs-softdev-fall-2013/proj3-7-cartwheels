@@ -81,5 +81,5 @@ class Collection(object):
     def within(self, box, offset=0, number=20, **kwargs):
         box = {'loc': {'$within': {'$box': box}}}
         kwargs = dict(box.items() + kwargs.items())
-        return self.to_objects(self.objects.find(kwargs).skip(offset).limit(number))
+        return self.find(offset, number, **kwargs)
 
