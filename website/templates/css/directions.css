@@ -5,26 +5,32 @@ html, body {
       }
 
 #panel {
-      position: absolute;
+      /*position: absolute;
       top: 5px;
       left: 50%;
       margin-left: -180px;
-      z-index: 5;
+      z-index: 5;*/
       background-color: #fff;
       padding: 5px;
-      border: 1px solid #999;
+      border: 2px solid #999;
+	width: 197px;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 #directions-panel {
-      height: 100%;
-      float: right;
+	
+      height: 400px;
+	float: right;
+     margin-right: 150px;
       width: 390px;
       overflow: auto;
 }
 
 #map-canvas {
-      height: 100%;
-      margin: 0px;
+      height: 500px;
+	width: 500px;
+      margin-left: 200px;
       padding: 0px
       margin-right: 400px;
 }
